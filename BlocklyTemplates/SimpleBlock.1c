@@ -1,0 +1,89 @@
+Функция simple_block_get_nodes_fields(node)
+	fields = Новый Массив;
+	РезультатXpath = Root.ВычислитьВыражениеXpath("./b:field", node, размыватель);	
+	Пока Истина Цикл
+		Узел = РезультатXpath.ПолучитьСледующий();
+		Если Узел=Неопределено Тогда Прервать КонецЕсли;
+		fields.Добавить(Узел);		
+	КонецЦикла;
+	Возврат fields;	
+КонецФункции	
+
+Функция simple_block_get_nodes_args(node)	
+	args = Новый Массив;
+	РезультатXpath = Root.ВычислитьВыражениеXpath("./b:value", node, размыватель);	
+	Пока Истина Цикл
+		Узел = РезультатXpath.ПолучитьСледующий();
+		Если Узел=Неопределено Тогда Прервать КонецЕсли;
+		args.Добавить(Узел);		
+	КонецЦикла;
+	Возврат args; 	
+КонецФункции
+
+Процедура simple_block_get_fields(node, path, context, block_context)
+	fields = simple_block_get_nodes_fields(node);
+	Если Не fields = Неопределено Тогда
+		Для i=0 По fields.Количество()-1 Цикл
+			_param_name = fields[i].ПолучитьАтрибут("name");
+			ВставитьСвойствоЕслиНет(block_context, _param_name, fields[i].ТекстовоеСодержимое);
+		КонецЦикла;	
+	КонецЕсли;		
+КонецПроцедуры	
+
+Процедура simple_block_get_args(node, path, context, block_context)
+	Args = simple_block_get_nodes_args(node);
+	Если Не args = Неопределено Тогда
+		Для i=0 По args.Количество()-1 Цикл
+			_param_name = args[i].ПолучитьАтрибут("name");
+			Если Не block_context.Свойство("_param_name") Тогда
+				ВставитьСвойствоЕслиНет(block_context, _param_name, block_execute_all_next(Args[i], path + _param_name, context, block_context));
+			КонецЕсли;	
+		КонецЦикла;		
+	КонецЕсли;						
+КонецПроцедуры	
+
+Функция simple_block_execute(block_type, node, path, context, block_context)
+	simple_block_get_args(node, path, context, block_context);
+	simple_block_get_fields(node, path, context, block_context);
+	
+	Если НЕ block_context.Свойство("result") Тогда
+		block_check_step(context, block_context);
+		Result = Неопределено;
+		Если block_type = "variables_set" Тогда
+			result = block_variables_set_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "logic_compare" Тогда
+			result = block_logic_compare_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "variables_get" Тогда
+			result = block_variables_get_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "format" Тогда
+			result = block_format_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "obj_prop_set" Тогда
+			result = block_obj_prop_set_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "obj_prop_get" Тогда
+			result = block_obj_prop_get_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "controls_forEach" Тогда
+			result = block_controls_for_each_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "lists_get_index" Тогда
+			result = block_lists_get_index_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "obj_prop_append" Тогда
+			result = block_obj_prop_append_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "get_current_datetime" Тогда
+			result = block_get_current_datetime_calc_value(block_type, node, path, context, block_context);		
+		ИначеЕсли block_type = "math_number" Тогда
+			result = block_math_number_calc_value(block_type, node, path, context, block_context);		
+		Иначе
+			Сообщить("Не найден блок: " + block_type);
+			Result =  Неопределено;
+		КонецЕсли;
+		ВставитьСвойствоЕслиНет(block_context, "result", result);
+	КонецЕсли;	
+	Возврат block_context["result"];	
+КонецФункции	
+
+Функция Block_check_required_param_in_block_context(required_param, block_context)
+	Для каждого param Из required_param Цикл
+		Если Не block_context.Свойство(param) Тогда
+			raise "Параметр " + param + " не определен"
+		КонецЕсли;	
+	КонецЦикла;	
+КонецФункции	

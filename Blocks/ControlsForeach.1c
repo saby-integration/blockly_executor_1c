@@ -1,0 +1,18 @@
+Функция block_controls_for_each_calc_value(block_type, node, path, context, block_context)
+	required_param = новый массив;
+	required_param.Добавить("VAR");
+	required_param.Добавить("LIST");
+	block_check_required_param_in_block_context(required_param, block_context);
+	
+	Если Не block_context.Свойство("INDEX") Тогда
+		block_context.Вставить("INDEX", 0);
+		block_set_variable(context, block_context["VAR"], 0);
+	КонецЕсли;	
+	Если block_context.Свойство("LIST") Тогда
+		Пока block_context["INDEX"] < block_context["LIST"].Количество() Цикл
+			block_execute_all_next(node.ДочерниеУзлы[2], path, context, block_context, True);
+			block_context["INDEX"] = block_context["INDEX"] + 1;
+			block_set_variable(context, block_context["VAR"], block_context["INDEX"]);
+		КонецЦикла;	
+	КонецЕсли;		
+КонецФункции

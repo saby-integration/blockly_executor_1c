@@ -1,0 +1,9 @@
+Функция block_procedures_callnoreturn_execute(block_type, node, path, context, block_context)
+	
+	Возврат Неопределено;	
+КонецФункции
+
+Функция block_procedures_callnoreturn_get_params(node)
+	
+	Возврат Неопределено;	
+КонецФункции

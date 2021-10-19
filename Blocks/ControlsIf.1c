@@ -1,0 +1,54 @@
+Функция block_controls_if_execute(block_type, node, path, context, block_context)
+	if_count = Число(Block_get_mutation(node, "elseif", 0));
+	defined_else = Число(Block_get_mutation(node, "else", 0));
+	if_complete = Ложь;
+	j = Неопределено;
+	Для j = 0 По if_count Цикл
+		_key = "IF"+j;
+		complete = ?(block_context.Свойство(_key), Истина, Ложь);
+		Если complete Тогда
+			result = block_context[_key];
+		Иначе
+			node_if = Block_controls_if_get_node_if(node, j);
+			Если node_if = Неопределено Тогда
+				ВызватьИсключение "Bad " + _key + path;
+			КонецЕсли;	
+			result = Block_execute_all_next(node_if, path+"."+"if"+j, context, block_context);
+			ВставитьСвойствоЕслиНет(block_context, _key, result);
+		КонецЕсли;	
+		Если ЗначениеЗаполнено(result) Тогда
+			if_complete = Истина;
+			Прервать;
+		КонецЕсли;	
+	КонецЦикла;
+	block_check_step(context, block_context);
+	Если if_complete and j <> Неопределено Тогда
+		node_do = Block_controls_if_get_node_do(node, j);
+		Если node_do = Неопределено Тогда
+			Возврат Неопределено;
+		КонецЕсли;
+		Возврат Block_execute_all_next(node_do, path+"."+"do"+j, context, block_context, True);
+	Иначе
+		Если defined_else Тогда
+			node_do = Block_controls_if_get_node_else(node);
+			Если node_do = Неопределено Тогда
+				ВызватьИсключение "Bad else DO " + path;
+			КонецЕсли;	
+			Возврат Block_execute_all_next(node_do, path+"."+"else", context, block_context, True);
+		КонецЕсли;	
+	КонецЕсли;
+	
+	Возврат Неопределено;	
+КонецФункции
+
+Функция block_controls_if_get_node_if(node,number)	
+	Возврат Root.ВычислитьВыражениеXpath("./b:value[@name='IF"+number+"']", node, размыватель).ПолучитьСледующий();	
+КонецФункции
+
+Функция block_controls_if_get_node_do(node,number)	
+	Возврат Root.ВычислитьВыражениеXpath("./b:statement[@name='DO"+number+"']", node, размыватель).ПолучитьСледующий();	
+КонецФункции
+
+Функция block_controls_if_get_node_else(node)	
+	Возврат Root.ВычислитьВыражениеXpath("./b:statement[@name='ELSE']", node, размыватель).ПолучитьСледующий();	
+КонецФункции

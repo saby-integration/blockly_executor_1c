@@ -1,0 +1,15 @@
+Функция block_procedures_defnoreturn_execute(block_type, node, path, context, block_context)
+	block_check_step(context, block_context);
+	code = block_get_node_stack(node);
+	Возврат block_execute_all_next(code, path + "." + "main", context, block_context, Истина);	
+КонецФункции
+
+Функция block_procedures_defnoreturn_get_func_name(node)
+	
+	Возврат Неопределено;
+КонецФункции
+
+Функция block_procedures_defnoreturn_get_node_stack(node)
+	
+	Возврат Неопределено;
+КонецФункции
