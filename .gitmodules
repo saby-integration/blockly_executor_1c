@@ -1,0 +1,3 @@
+[submodule "IntegrationBlockly"]
+	path = IntegrationBlockly
+	url = https://github.com/saby-integration/blockly_saby_blocks_1c.git
