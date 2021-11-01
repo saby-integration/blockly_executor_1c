@@ -10,7 +10,8 @@
 	КонецЕсли;	
 	Если block_context.Свойство("LIST") Тогда
 		Пока block_context["INDEX"] < block_context["LIST"].Количество() Цикл
-			block_execute_all_next(node.ДочерниеУзлы[2], path, context, block_context, True);
+			ДочернийУзел = node.ДочерниеУзлы[2].КлонироватьУзел(Истина);
+			block_execute_all_next(ДочернийУзел, path, context, block_context, True);
 			block_context["INDEX"] = block_context["INDEX"] + 1;
 			block_set_variable(context, block_context["VAR"], block_context["INDEX"]);
 		КонецЦикла;	
