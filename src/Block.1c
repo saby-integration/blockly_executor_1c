@@ -75,7 +75,7 @@
 				node = next_node;
 				Возврат result;
 			КонецПопытки;	
-				child_context["i"+statement_number].Вставить("__result", True);
+			child_context["i"+statement_number].Вставить("__result", True);
 			statement_number = statement_number + 1;
 		Иначе
 			block_context.Удалить("child");
