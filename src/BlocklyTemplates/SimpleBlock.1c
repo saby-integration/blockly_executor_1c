@@ -35,7 +35,7 @@
 	Если Не args = Неопределено Тогда
 		Для i=0 По args.Количество()-1 Цикл
 			_param_name = args[i].ПолучитьАтрибут("name");
-			Если Не block_context.Свойство("_param_name") Тогда
+			Если Не block_context.Свойство(_param_name) Тогда
 				ВставитьСвойствоЕслиНет(block_context, _param_name, block_execute_all_next(Args[i], path + _param_name, context, block_context));
 			КонецЕсли;	
 		КонецЦикла;		
