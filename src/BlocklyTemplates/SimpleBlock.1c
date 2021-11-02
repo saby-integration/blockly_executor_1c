@@ -35,7 +35,7 @@
 	Если Не args = Неопределено Тогда
 		Для i=0 По args.Количество()-1 Цикл
 			_param_name = args[i].ПолучитьАтрибут("name");
-			Если Не block_context.Свойство("_param_name") Тогда
+			Если Не block_context.Свойство(_param_name) Тогда
 				ВставитьСвойствоЕслиНет(block_context, _param_name, block_execute_all_next(Args[i], path + _param_name, context, block_context));
 			КонецЕсли;	
 		КонецЦикла;		
@@ -71,6 +71,8 @@
 			result = block_get_current_datetime_calc_value(block_type, node, path, context, block_context);		
 		ИначеЕсли block_type = "math_number" Тогда
 			result = block_math_number_calc_value(block_type, node, path, context, block_context);		
+		ИначеЕсли block_type = "logic_boolean" Тогда
+			result = block_logic_boolean_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			Сообщить("Не найден блок: " + block_type);
 			Result =  Неопределено;

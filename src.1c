@@ -19,6 +19,9 @@
 #Область include_BlocklyExecutor_src_Blocks_MathNumber
 #КонецОбласти
 
+#Область include_BlocklyExecutor_src_Blocks_LogicBoolean
+#КонецОбласти
+
 #Область include_BlocklyExecutor_src_Blocks_ControlsIf
 #КонецОбласти
 

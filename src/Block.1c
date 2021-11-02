@@ -68,7 +68,13 @@
 			result = Неопределено;
 		КонецЕсли;
 		Если НЕ next_node = Неопределено Тогда
-			node = next_node;
+			Попытка
+				node = next_node;
+			Исключение
+				node = неопределено;
+				node = next_node;
+				Возврат result;
+			КонецПопытки;	
 			child_context["i"+statement_number].Вставить("__result", True);
 			statement_number = statement_number + 1;
 		Иначе

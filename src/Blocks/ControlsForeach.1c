@@ -10,9 +10,19 @@
 	КонецЕсли;	
 	Если block_context.Свойство("LIST") Тогда
 		Пока block_context["INDEX"] < block_context["LIST"].Количество() Цикл
-			block_execute_all_next(node.ДочерниеУзлы[2], path, context, block_context, True);
+			ДочернийУзел = get_statement_node(node);
+			block_execute_all_next(ДочернийУзел, path, context, block_context, True);
 			block_context["INDEX"] = block_context["INDEX"] + 1;
 			block_set_variable(context, block_context["VAR"], block_context["INDEX"]);
 		КонецЦикла;	
 	КонецЕсли;		
+КонецФункции
+
+Функция get_statement_node(node)
+	Return_node = Неопределено;
+	Попытка
+		Return_node = Root.ВычислитьВыражениеXpath("./b:statement", node, размыватель).ПолучитьСледующий();	
+	Исключение
+	КонецПопытки;	
+	Возврат Return_node;
 КонецФункции
