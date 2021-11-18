@@ -1,4 +1,4 @@
-Функция blockly_executor_execute(ДокументDOM, endpoint = Неопределено) Экспорт
+Функция blockly_executor_execute(ДокументDOM, endpoint = Неопределено)
 	blockly_executor_read_procedures_and_functions();
 	Если ЗначениеЗаполнено(endpoint) Тогда
 		Попытка
