@@ -1,43 +1,58 @@
 Функция block_execute(block_type, node, path, context, block_context)
-	block_context.Вставить("id",node.ПолучитьАтрибут("id"));
+	block_context.Вставить("__id",node.ПолучитьАтрибут("id"));
 	block_context.Вставить("__path",node.ПолучитьАтрибут("path"));
-	Если block_type = "procedures_defnoreturn" Тогда
-		Возврат block_procedures_defnoreturn_execute(block_type, node, path, context, block_context);	
-	ИначеЕсли block_type = "new_obj" Тогда
-		Возврат block_new_obj_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "text" Тогда
-		Возврат block_text_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "controls_if" Тогда
-		Возврат block_controls_if_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "lists_create_with" Тогда
-		Возврат block_lists_create_with_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "procedures_callnoreturn" Тогда
-		Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "procedures_defreturn" Тогда
-		Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "procedures_callreturn" Тогда
-		Возврат procedures_callreturn_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "c1_call_select" Тогда
-		Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_ref" Тогда
-		Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_meta_create" Тогда
-		Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_meta_update" Тогда
-		Возврат block_c1_meta_update_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_meta_read" Тогда
-		Возврат block_c1_meta_read_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_get_uuid" Тогда
-		Возврат block_c1_get_uuid_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
-	ИначеЕсли block_type = "c1_execute" Тогда
-		Возврат block_c1_execute_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
-	ИначеЕсли block_type = "c1_clear_table" Тогда
-		Возврат block_c1_clear_table_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "saby_download_from_link" Тогда
-		Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
-	Иначе
-		Возврат simple_block_execute(block_type, node, path, context, block_context);	
-	КонецЕсли;
+	blockType = node.ПолучитьАтрибут("type");
+	Попытка
+		Если block_type = "procedures_defnoreturn" Тогда
+			Возврат block_procedures_defnoreturn_execute(block_type, node, path, context, block_context);	
+		ИначеЕсли block_type = "new_obj" Тогда
+			Возврат block_new_obj_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "text" Тогда
+			Возврат block_text_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "controls_if" Тогда
+			Возврат block_controls_if_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "lists_create_with" Тогда
+			Возврат block_lists_create_with_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "procedures_callnoreturn" Тогда
+			Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "procedures_defreturn" Тогда
+			Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "procedures_callreturn" Тогда
+			Возврат procedures_callreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_call_select" Тогда
+			Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_ref" Тогда
+			Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_meta_create" Тогда
+			Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_meta_update" Тогда
+			Возврат block_c1_meta_update_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_meta_read" Тогда
+			Возврат block_c1_meta_read_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_get_uuid" Тогда
+			Возврат block_c1_get_uuid_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
+		ИначеЕсли block_type = "c1_execute" Тогда
+			Возврат block_c1_execute_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
+		ИначеЕсли block_type = "c1_clear_table" Тогда
+			Возврат block_c1_clear_table_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "saby_download_from_link" Тогда
+			Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
+		Иначе
+			Возврат simple_block_execute(block_type, node, path, context, block_context);	
+		КонецЕсли;
+	Исключение
+		НоваяОшибка = Новый Структура("message, detail", "Неизвестная ошибка в блоке.", blockType);
+		ИнфОбОшибке = ИнформацияОбОшибке();
+		Ошибка = ExtExceptionAnalyse( ИнфОбОшибке );
+		Если Ошибка.type = "Exception" Тогда
+			ОшибкаСтруктура = ExtException( НоваяОшибка, Ошибка );
+			ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
+			ВызватьИсключение( ОшибкаСтрокой );
+		Иначе
+			//Проброс нашей ошибки
+			ВызватьИсключение( ОписаниеОшибки() );
+		КонецЕсли;
+	КонецПопытки;
 	Возврат Неопределено;
 КонецФункции
 
@@ -91,17 +106,26 @@
 			Если block_context.id = selected Тогда
 				Step = block_context.id;
 				Currentblock_context = block_context;
-				ВызватьИсключение "StepForward" 
+				
+				ОшибкаСтруктура = ExtException( Новый Структура("type", "StepForward"), );
+				ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
+				ВызватьИсключение ОшибкаСтрокой;
 			КонецЕсли	
 		ИначеЕсли ЗначениеЗаполнено(NextStep) Тогда			
 			Step = block_context.id;
 			Currentblock_context = block_context;
-			ВызватьИсключение "StepForward"
+
+			ОшибкаСтруктура = ExtException( Новый Структура("type", "StepForward"), );
+			ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
+			ВызватьИсключение ОшибкаСтрокой;
 		ИначеЕсли block_context.id = step Тогда
 			Если nextStep = Ложь Тогда  
 				Step = block_context.id;
 				Currentblock_context = block_context;
-				ВызватьИсключение "StepForward"
+				
+				ОшибкаСтруктура = ExtException( Новый Структура("type", "StepForward"), );
+				ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
+				ВызватьИсключение ОшибкаСтрокой;
 			Иначе
 				nextStep = Истина;  
 			КонецЕсли;
