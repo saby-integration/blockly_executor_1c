@@ -2,10 +2,15 @@
 	endpoint_args_values = procedures_callreturn_get_params(node);
 	Если ЗначениеЗаполнено(endpoint_args_values.values) Тогда
 		Для i = 0 По endpoint_args_values.args.Количество() - 1 Цикл
-			Если НЕ ЗначениеЗаполнено(context.variables[endpoint_args_values.args[i]]) Тогда
-				context.variables.Вставить(endpoint_args_values.args[i], block_execute_all_next(endpoint_args_values.values[i], path + "." + i, context, block_context));
+			Если Не block_context.Свойство(endpoint_args_values.args[i]) Тогда
+				Если endpoint_args_values.values.Количество() <= i Тогда
+					_value = Неопределено;
+				Иначе
+				    _value = block_execute_all_next(endpoint_args_values.values[i], path + "." + i, context, block_context);
+				КонецЕсли;
+				context.variables.Вставить(endpoint_args_values.args[i], _value );
 				block_context.Вставить(endpoint_args_values.args[i], context.variables[endpoint_args_values.args[i]]);
-			КонецЕсли;	
+			КонецЕсли;
 		КонецЦикла;	
 	КонецЕсли;
 	handler = Functions[endpoint_args_values.endpoint];
