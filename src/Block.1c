@@ -13,8 +13,8 @@
 			Возврат block_controls_if_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "lists_create_with" Тогда
 			Возврат block_lists_create_with_execute(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "procedures_callnoreturn" Тогда
-			Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
+		//ИначеЕсли block_type = "procedures_callnoreturn" Тогда
+		//	Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "procedures_defreturn" Тогда
 			Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "procedures_callreturn" Тогда
