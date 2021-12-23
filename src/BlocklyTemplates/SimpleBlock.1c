@@ -70,7 +70,9 @@
 		ИначеЕсли block_type = "get_current_datetime" Тогда
 			result = block_get_current_datetime_calc_value(block_type, node, path, context, block_context);		
 		ИначеЕсли block_type = "math_number" Тогда
-			result = block_math_number_calc_value(block_type, node, path, context, block_context);		
+			result = block_math_number_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "extsyncdoc_write" Тогда
+			result = block_extsyncdoc_write_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			ВызватьИсключение ЗначениеВСтрокуВнутр(ExtException(Новый Структура("message, detail", "Не найден блок", block_type), ));
 		КонецЕсли;
