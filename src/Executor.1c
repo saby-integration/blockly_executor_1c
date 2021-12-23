@@ -24,7 +24,7 @@
 				Currentblock_context.value = ПолучитьСтруктуруИзОбъекта(Currentblock_context.value);
 			КонецЕсли;
 			ОтладкаПеременных(context.variables);	
-			Возврат Новый Структура ("step, stepByStep, variables, data, status", Currentblock_context.id, StepByStep, context.variables, Currentblock_context, "run"); 			
+			Возврат Новый Структура ("step, stepByStep, variables, data, status", Currentblock_context.__id, StepByStep, context.variables, Currentblock_context, "run"); 			
 		Иначе
 			ОшибкаСтруктура = ExtException( Неопределено, Ошибка );
 			Возврат Новый структура("data, status", ОшибкаСтруктура, "error");
