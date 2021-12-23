@@ -72,8 +72,7 @@
 		ИначеЕсли block_type = "math_number" Тогда
 			result = block_math_number_calc_value(block_type, node, path, context, block_context);		
 		Иначе
-			ОшибкаСтрокой = ЗначениеВСтрокуВнутр(ExtException( Новый Структура("message, detail", "Не найден блок", block_type), ));
-			ВызватьИсключение ОшибкаСтрокой;
+			ВызватьИсключение ЗначениеВСтрокуВнутр(ExtException(Новый Структура("message, detail", "Не найден блок", block_type), ));
 		КонецЕсли;
 		ВставитьСвойствоЕслиНет(block_context, "result", result);
 	КонецЕсли;	
