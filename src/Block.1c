@@ -149,8 +149,8 @@
 КонецФункции	
 
 Функция Block_set_variable(context, name, value)
-	Если context.variables[name] <> Неопределено Тогда
-		context.variables[name] = value;
+	Если context.variables.Получить(name) <> Неопределено Тогда
+		context.variables.Вставить(name, value);
 	Иначе
 		context.variables.Вставить(name, value);
 	КонецЕсли;	
@@ -158,7 +158,7 @@
 КонецФункции
 
 Функция Block_get_variable(context, name)
-	Возврат context.variables[name];
+	Возврат context.variables.Получить(name);
 КонецФункции
 
 Функция Block_get_mutation(node, Mutation_name, Default = Неопределено)
