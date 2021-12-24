@@ -1,7 +1,8 @@
 Функция block_execute(block_type, node, path, context, block_context)
-	block_context.Вставить("__id",node.ПолучитьАтрибут("id"));
-	block_context.Вставить("__path",node.ПолучитьАтрибут("path"));
 	blockType = node.ПолучитьАтрибут("type");
+	path = path+"."+blockType;
+	block_context.Вставить("__id",node.ПолучитьАтрибут("id"));
+	block_context.Вставить("__path",path);
 	Попытка
 		Если block_type = "procedures_defnoreturn" Тогда
 			Возврат block_procedures_defnoreturn_execute(block_type, node, path, context, block_context);	
@@ -66,7 +67,7 @@
 			next_node = ?(statement,block_get_next_statement(child), Неопределено);
 			block_subtype = child.ПолучитьАтрибут("type");
 			Если НЕ child_context.Свойство("__result") Тогда
-				path = path+"."+child.ПолучитьАтрибут("id");
+				//path = path+"."+child.ПолучитьАтрибут("id");
 				result = block_execute(block_subtype, child, path, context, child_context["i" + statement_number]);
 			КонецЕсли;
 			
