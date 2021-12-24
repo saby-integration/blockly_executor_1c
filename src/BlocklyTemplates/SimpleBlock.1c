@@ -73,6 +73,7 @@
 			result = block_math_number_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsyncdoc_write" Тогда
 			result = block_extsyncdoc_write_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "extsyncdoc_run" Тогда
 		ИначеЕсли block_type = "api3_link" Тогда
 			result = block_api3_link_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsys_read" Тогда
