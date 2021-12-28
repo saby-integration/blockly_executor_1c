@@ -53,9 +53,6 @@
 
 Функция CalcIni(ПараметрыВызова) Экспорт
 	Workspace = ПолучитьДокументDOM(IniGet(ПараметрыВызова["ini_name"]));
-	//Пока тут
-	Load_Ini(ПараметрыВызова["ini_name"]);
-	//Пока тут
 	context.variables = ПолучитьПеременные(context.variables, ПараметрыВызова["object"]);
 	РезультатРаботыБлока = blockly_executor_execute(Workspace, ПараметрыВызова["endpoint"]);
 	Возврат РезультатРаботыБлока;
