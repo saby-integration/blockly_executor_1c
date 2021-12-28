@@ -430,7 +430,7 @@
 		ПервыйЗапуск = Ложь;			
 	КонецЕсли;	
 	Если Ini = Неопределено Тогда
-		Ini = Новый Структура;
+		Ini = Новый Соответствие;
 	КонецЕсли;	
 	Если context = Неопределено Или ПервыйЗапуск Тогда
 		context = Новый Структура("data, variables, debug, operation, params", Новый Структура, Новый Соответствие, Новый Структура, Новый Структура, Новый Структура);
@@ -444,6 +444,8 @@
 		operation_uuid = ПараметрыВызова.Получить("operation_uuid");
 		connection_uuid = ПараметрыВызова.Получить("connection_uuid");
 	КонецЕсли;
+    context.operation.Вставить("operation_uuid",operation_uuid);
+    context.operation.Вставить("connection_uuid",connection_uuid);
 	Попытка
 		params = ПрочитатьИзХранилища("BlocklyExecutor", "params"+connection_uuid,, ПараметрыСеанса.ТекущийПользователь);
 		Если ЗначениеЗаполнено(params) Тогда
