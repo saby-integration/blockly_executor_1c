@@ -81,6 +81,10 @@
 			result = block_extsys_read(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
 			result = block_c1_ref_to_obj(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_doc_read_list_print_forms" Тогда
+			result = block_c1_doc_read_list_print_forms(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_doc_read_print_forms" Тогда
+			result = block_c1_doc_read_print_forms(block_type, node, path, context, block_context);
 		Иначе
 			ВызватьИсключение ЗначениеВСтрокуВнутр(ExtException(Новый Структура("message, detail", "Не найден блок", block_type), ));
 		КонецЕсли;
