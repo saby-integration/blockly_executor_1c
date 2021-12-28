@@ -435,10 +435,15 @@
 	Если context = Неопределено Или ПервыйЗапуск Тогда
 		context = Новый Структура("data, variables, debug, operation, params", Новый Структура, Новый Соответствие, Новый Структура, Новый Структура, Новый Структура);
 	КонецЕсли;
-	operation_uuid = ПараметрыВызова.Получить("operation_uuid");
-	connection_uuid = ПараметрыВызова.Получить("connection_uuid");
-	context.operation.Вставить("operation_uuid",operation_uuid);
-	context.operation.Вставить("connection_uuid",connection_uuid);
+	operation_uuid = "";
+	connection_uuid	= "";
+	Если ТипЗнч(ПараметрыВызова) = Тип("Структура") Тогда
+		operation_uuid = ПараметрыВызова.Свойство("operation_uuid", operation_uuid);
+		connection_uuid = ПараметрыВызова.Свойство("connection_uuid", connection_uuid);
+	ИначеЕсли ТипЗнч(ПараметрыВызова) = Тип("Соответствие") Тогда
+		operation_uuid = ПараметрыВызова.Получить("operation_uuid");
+		connection_uuid = ПараметрыВызова.Получить("connection_uuid");
+	КонецЕсли;
 	Попытка
 		params = ПрочитатьИзХранилища("BlocklyExecutor", "params"+connection_uuid,, ПараметрыСеанса.ТекущийПользователь);
 		Если ЗначениеЗаполнено(params) Тогда
