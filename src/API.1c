@@ -62,12 +62,8 @@
 	Если Ini.Получить(Имя) = Неопределено Тогда
 		мИниФайлов	= Новый Массив();
 		мИниФайлов.Добавить(Новый Структура("type, name", "Blockly", "Blockly_"+Имя));
-	    res = local_helper_integration_api(context.params, "IntegrationConnection.ReadConnection",
-			Новый Структура("props, ini",
-				Новый Структура("id, type_data", context.operation.connection_uuid, 1),
-	        	мИниФайлов,
-			)
-	    );
+		params	= Новый Структура("props, ini",Новый Структура("id, type_data", context.operation.connection_uuid, 1),мИниФайлов,);
+		res = local_helper_integration_api(context.params, "IntegrationConnection.ReadConnection", params);
 		Если (ТипЗнч(res) = Тип("Соответствие")) и (res.Получить("data") <> Неопределено) И (res["data"].Получить("Blockly_"+Имя) <> Неопределено) Тогда
 			ДанныеОбИНИ = res["data"].Получить("Blockly_"+Имя);
 			Если ТипЗнч(ДанныеОбИНИ) = Тип("Соответствие") И (ДанныеОбИНИ.Получить("data_name") = "Blockly_"+Имя) Тогда 
@@ -135,7 +131,7 @@
 		КонецЕсли;
 		ПараметрыЗапроса["operation_uuid"] = РезультатЗапроса["operation_uuid"];
 		ПараметрыЗапроса["commands_result"] = ОбработатьКоманды(РезультатЗапроса["commands"]);
-				
+		
 	КонецЦикла;		
 КонецФункции
 

@@ -1,9 +1,9 @@
 Функция block_lists_create_with_get_list_size(node)
 	mutation = Root.ВычислитьВыражениеXpath("./b:mutation", node, размыватель).ПолучитьСледующий();
-        Если mutation = Неопределено Тогда
-            Возврат 0;
-		КонецЕсли;	
-        Возврат Число(?(ЗначениеЗаполнено(mutation.ПолучитьАтрибут("items")),mutation.ПолучитьАтрибут("items"),0));	
+	Если mutation = Неопределено Тогда
+		Возврат 0;
+	КонецЕсли;	
+	Возврат Число(?(ЗначениеЗаполнено(mutation.ПолучитьАтрибут("items")),mutation.ПолучитьАтрибут("items"),0));	
 КонецФункции
 
 Функция block_lists_create_with_get_node_add(node,number)

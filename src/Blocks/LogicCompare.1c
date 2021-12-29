@@ -5,9 +5,9 @@
 	required_param.Добавить("OP");
 	block_check_required_param_in_block_context(required_param, block_context);
 	operation = block_context["OP"];
-        Если operation = "EQ" Тогда
-            Возврат ?(block_context["A"] = block_context["B"], Истина, Ложь);
-        Иначе
-            ВызватьИсключение operation + " не поддерживается"
-		КонецЕсли;	
+	Если operation = "EQ" Тогда
+		Возврат ?(block_context["A"] = block_context["B"], Истина, Ложь);
+	Иначе
+		ВызватьИсключение operation + " не поддерживается"
+	КонецЕсли;	
 КонецФункции

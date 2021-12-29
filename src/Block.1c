@@ -14,8 +14,8 @@
 			Возврат block_controls_if_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "lists_create_with" Тогда
 			Возврат block_lists_create_with_execute(block_type, node, path, context, block_context);
-		//ИначеЕсли block_type = "procedures_callnoreturn" Тогда
-		//	Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
+			//ИначеЕсли block_type = "procedures_callnoreturn" Тогда
+			//	Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "procedures_defreturn" Тогда
 			Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "procedures_callreturn" Тогда
@@ -24,8 +24,6 @@
 			Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "c1_ref" Тогда
 			Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
-			Возврат Истина;//Заглушка
 		ИначеЕсли block_type = "c1_meta_create" Тогда
 			Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "c1_meta_update" Тогда
@@ -59,10 +57,10 @@
 	result = Неопределено;
 	Пока Истина Цикл
 		Попытка
-				_child_context = child_context["i" + statement_number]
-			Исключение
-				child_context.Вставить("i" + statement_number, Новый Структура);
-			КонецПопытки;	
+			_child_context = child_context["i" + statement_number]
+		Исключение
+			child_context.Вставить("i" + statement_number, Новый Структура);
+		КонецПопытки;	
 		child = block_get_child_block(node);
 		next_node = Неопределено;
 		Если НЕ child = Неопределено  Тогда
@@ -108,7 +106,7 @@
 		ИначеЕсли ЗначениеЗаполнено(NextStep) Тогда			
 			Step = block_context.__id;
 			Currentblock_context = block_context;
-
+			
 			ОшибкаСтруктура = ExtException( Новый Структура("type", "StepForward"), );
 			ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
 			ВызватьИсключение ОшибкаСтрокой;

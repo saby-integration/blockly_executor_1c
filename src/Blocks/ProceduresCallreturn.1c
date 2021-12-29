@@ -6,7 +6,7 @@
 				Если endpoint_args_values.values.Количество() <= i Тогда
 					_value = Неопределено;
 				Иначе
-				    _value = block_execute_all_next(endpoint_args_values.values[i], path + "." + i, context, block_context);
+					_value = block_execute_all_next(endpoint_args_values.values[i], path + "." + i, context, block_context);
 				КонецЕсли;
 				context.variables.Вставить(endpoint_args_values.args[i], _value );
 				block_context.Вставить(endpoint_args_values.args[i], context.variables[endpoint_args_values.args[i]]);
