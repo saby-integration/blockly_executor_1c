@@ -78,13 +78,15 @@
 		ИначеЕсли block_type = "api3_link" Тогда
 			result = block_api3_link_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsys_read" Тогда
-			result = block_extsys_read(block_type, node, path, context, block_context);
+			result = block_extsys_read_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
-			result = block_c1_ref_to_obj(block_type, node, path, context, block_context);
+			result = block_c1_ref_to_obj_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_doc_read_list_print_forms" Тогда
-			result = block_c1_doc_read_list_print_forms(block_type, node, path, context, block_context);
+			result = block_c1_doc_read_list_print_forms_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_doc_read_print_forms" Тогда
-			result = block_c1_doc_read_print_forms(block_type, node, path, context, block_context);
+			result = block_c1_doc_read_print_forms_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_upload_files" Тогда
+			result = block_saby_upload_files_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			ВызватьИсключение ЗначениеВСтрокуВнутр(ExtException(Новый Структура("message, detail", "Не найден блок", block_type), ));
 		КонецЕсли;
