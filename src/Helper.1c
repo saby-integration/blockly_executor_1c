@@ -422,6 +422,7 @@
 	КонецЕсли;
 	contexts.Добавить(context);
 	context	= new_context();
+	context.params	= contexts[contexts.Количество()-1].params;
 КонецФункции
 	
 Функция delete_last_context()
