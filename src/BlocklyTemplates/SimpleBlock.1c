@@ -129,6 +129,10 @@
 			result = block_saby_upload_files_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsys_update_status" Тогда
 			result = block_saby_extsys_update_status_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_read_document" Тогда
+			result = saby_read_document_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_download_from_link" Тогда
+			Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
 		Иначе
 			ВызватьИсключение ЗначениеВСтрокуВнутр(ExtException(Новый Структура("message, detail", "Не найден блок", block_type), ));
 		КонецЕсли;

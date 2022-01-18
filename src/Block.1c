@@ -37,8 +37,6 @@
 			Возврат block_c1_execute_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
 		ИначеЕсли block_type = "c1_clear_table" Тогда
 			Возврат block_c1_clear_table_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-		ИначеЕсли block_type = "saby_download_from_link" Тогда
-			Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "saby_extsyncobj_list" Тогда
 			Возврат saby_extsyncobj_list_calc_value(block_type, node, path, context, block_context);
 		Иначе
