@@ -58,11 +58,20 @@
 	Возврат РезультатРаботыБлока;
 КонецФункции	
 
-Функция Load_ini( Имя )
+Функция Load_ini( Имя, ПараметрыПодключения = Неопределено ) Экспорт 
+	Если Ini = Неопределено Тогда
+		Ini = Новый Соответствие;
+	КонецЕсли;
 	Если Ini.Получить(Имя) = Неопределено Тогда
 		мИниФайлов	= Новый Массив();
 		мИниФайлов.Добавить(Новый Структура("type, name", "Blockly", "Blockly_"+Имя));
-		params	= Новый Структура("props, ini",Новый Структура("id, type_data", context.operation.connection_uuid, 1),мИниФайлов,);
+		Если ПараметрыПодключения = Неопределено Тогда
+			connection_uuid = context.operation.connection_uuid;
+		Иначе
+			context	= Новый Структура("params", ПараметрыПодключения["params"] );
+			connection_uuid = ПараметрыПодключения["connection_uuid"];
+		КонецЕсли;
+		params	= Новый Структура("props, ini",Новый Структура("id, type_data", connection_uuid, 1),мИниФайлов,);
 		res = local_helper_integration_api(context.params, "IntegrationConnection.ReadConnection", params);
 		Если (ТипЗнч(res) = Тип("Соответствие")) и (res.Получить("data") <> Неопределено) И (res["data"].Получить("Blockly_"+Имя) <> Неопределено) Тогда
 			ДанныеОбИНИ = res["data"].Получить("Blockly_"+Имя);
