@@ -99,6 +99,8 @@
 			result = block_api3_hiring_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_changeposition" Тогда
 			result = block_api3_changeposition_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "api3_change_position" Тогда
+			result = block_api3_change_position_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_dismissal" Тогда
 			result = block_api3_dismissal_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_leave" Тогда
@@ -151,6 +153,8 @@
 			result = block_api3_employmenttype_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_paymentcharacter" Тогда
 			result = block_api3_paymentcharacter_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "api3_leave_type" Тогда
+			result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsys_read" Тогда
 			result = block_extsys_read_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
