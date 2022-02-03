@@ -97,8 +97,6 @@
 			result = block_api3_link_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_hiring" Тогда
 			result = block_api3_hiring_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_changeposition" Тогда
-			result = block_api3_changeposition_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_change_position" Тогда
 			result = block_api3_change_position_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_dismissal" Тогда
