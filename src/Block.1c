@@ -39,6 +39,8 @@
 			Возврат block_c1_clear_table_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "saby_extsyncobj_list" Тогда
 			Возврат saby_extsyncobj_list_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "api3_timesheets_table" Тогда
+			block_api3_timesheets_table_execute(block_type, node, path, context, block_context);
 		Иначе
 			Возврат simple_block_execute(block_type, node, path, context, block_context);	
 		КонецЕсли;
@@ -47,6 +49,88 @@
 		ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в блоке", " (" + blockType + ")", Новый Структура("__id", block_context.__id)));
 	КонецПопытки;
 	Возврат Неопределено;
+КонецФункции
+
+Функция block_api3_timesheets_table_execute(block_type, node, path, context, block_context)
+	
+	Если Не block_context.свойство("value") Тогда
+		block_context.Вставить("value", Новый Массив);
+	КонецЕсли;	
+
+	args = simple_block_get_nodes_args(node);
+	Если args = Неопределено Тогда 
+		Возврат block_context["value"];	
+	КонецЕсли;
+	
+	ВставитьСвойствоЕслиНет(block_context, "Index", 0);
+	
+	//simple_block_get_args(node, path, context, block_context);
+	simple_block_get_fields(node, path, context, block_context);
+	
+	ArgItems = "_ТаблДок";
+	complete = ?(block_context.Свойство(ArgItems), Истина, Ложь);
+	Если complete Тогда
+		Items = block_context[ArgItems];
+	Иначе
+		ItemsNode = Root.ВычислитьВыражениеXpath("./b:value[@name='"+ArgItems+"']", node, размыватель).ПолучитьСледующий();
+		Items = block_execute_all_next(ItemsNode, path +"."+ArgItems, context, block_context);
+		Если ТипЗнч(Items) <> Тип("Массив") Тогда
+			//TODO бросить исключение
+		ИначеЕсли Items.Количество() = 0 Тогда
+			Возврат block_context["value"];
+		КонецЕсли;
+		ВставитьСвойствоЕслиНет(block_context, ArgItems, Items);
+	КонецЕсли;	
+
+	blockType =  block_context.__type;
+	ItemVarName = block_context["_ITEM"];
+    
+	Пока Истина Цикл
+		
+		Item = Items[block_context["Index"]];
+		block_set_variable(context, ItemVarName, Item);
+
+		Для i=0 По args.Количество()-1 Цикл
+			_param_name = args[i].ПолучитьАтрибут("name");
+			Если _param_name = ArgItems Тогда
+				Продолжить;
+			КонецЕсли;
+			
+			Если Не block_context.Свойство(_param_name) Тогда
+				Попытка
+					value = block_execute_all_next(Args[i], path +"."+_param_name, context, block_context)
+				Исключение
+					ИнфОбОшибке = ИнформацияОбОшибке();
+					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в расчете параметра блока", " (" + blockType + "."+_param_name+")", Новый Структура("__id", block_context.__id)));
+				КонецПопытки;
+				Попытка
+					ВставитьСвойствоЕслиНет(block_context, _param_name, value);
+				Исключение
+					ИнфОбОшибке = ИнформацияОбОшибке();
+					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Невалидное имя параметра блока", " (" + blockType + "."+_param_name+ ")", Новый Структура("__id", block_context.__id)));
+				КонецПопытки;
+			КонецЕсли;
+		КонецЦикла;		
+		block_check_step(context, block_context);
+		block_context["Index"] = block_context["Index"]+1;
+		Если Items.Количество() <= block_context["Index"] Тогда
+			Прервать;
+		Иначе
+			ResultItem = Новый Структура;
+			Для i=0 По args.Количество()-1 Цикл
+				_param_name = args[i].ПолучитьАтрибут("name");
+				Если _param_name = ArgItems Тогда
+					Продолжить;
+				КонецЕсли;
+				ResultItem.Вставить(_param_name, block_context[_param_name]);
+				block_context.Удалить(_param_name);
+			КонецЦикла;		
+			block_context["value"].Добавить(ResultItem);
+		КонецЕсли;
+	КонецЦикла;
+
+	Возврат block_context["value"];	
+
 КонецФункции
 
 Функция Block_execute_all_next(node, path, context, block_context, statement = Ложь)
