@@ -1,21 +1,26 @@
 Функция procedures_callreturn_execute(block_type, node, path, context, block_context)
-	endpoint_args_values = procedures_callreturn_get_params(node);
-	Если ЗначениеЗаполнено(endpoint_args_values.values) Тогда
-		Для i = 0 По endpoint_args_values.args.Количество() - 1 Цикл
-			Если Не block_context.Свойство(endpoint_args_values.args[i]) Тогда
-				Если endpoint_args_values.values.Количество() <= i Тогда
-					_value = Неопределено;
-				Иначе
-					_value = block_execute_all_next(endpoint_args_values.values[i], path + "." + i, context, block_context);
+	
+	Если НЕ block_context.Свойство("result") Тогда
+		endpoint_args_values = procedures_callreturn_get_params(node);
+		Если ЗначениеЗаполнено(endpoint_args_values.values) Тогда
+			Для i = 0 По endpoint_args_values.args.Количество() - 1 Цикл
+				Если Не block_context.Свойство(endpoint_args_values.args[i]) Тогда
+					Если endpoint_args_values.values.Количество() <= i Тогда
+						_value = Неопределено;
+					Иначе
+						_value = block_execute_all_next(endpoint_args_values.values[i], path + "." + i, context, block_context);
+					КонецЕсли;
+					context.variables.Вставить(endpoint_args_values.args[i], _value );
+					block_context.Вставить(endpoint_args_values.args[i], context.variables[endpoint_args_values.args[i]]);
 				КонецЕсли;
-				context.variables.Вставить(endpoint_args_values.args[i], _value );
-				block_context.Вставить(endpoint_args_values.args[i], context.variables[endpoint_args_values.args[i]]);
-			КонецЕсли;
-		КонецЦикла;	
+			КонецЦикла;	
+		КонецЕсли;
+		handler = Functions[endpoint_args_values.endpoint];
+		res = block_execute(handler.type,handler.node, path, context, block_context);
+		ВставитьСвойствоЕслиНет(block_context, "result", res);
 	КонецЕсли;
-	handler = Functions[endpoint_args_values.endpoint];
-	res = block_execute(handler.type,handler.node, path, context, block_context);
-	Возврат res;
+	
+	Возврат block_context.result;
 КонецФункции
 
 Функция procedures_callreturn_get_params(node)

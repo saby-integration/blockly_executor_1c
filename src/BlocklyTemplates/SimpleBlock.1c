@@ -1,65 +1,3 @@
-Функция simple_block_get_nodes_fields(node)
-	fields = Новый Массив;
-	Попытка
-		РезультатXpath = Root.ВычислитьВыражениеXpath("./b:field", node, размыватель);	
-		Пока Истина Цикл
-			Узел = РезультатXpath.ПолучитьСледующий();
-			Если Узел=Неопределено Тогда Прервать КонецЕсли;
-			fields.Добавить(Узел);		
-		КонецЦикла;
-	Исключение
-		ИнфОбОшибке = ИнформацияОбОшибке();
-		ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в блоке"));
-	КонецПопытки;
-	
-	Возврат fields;	
-КонецФункции	
-
-Функция simple_block_get_nodes_args(node)	
-	args = Новый Массив;
-	РезультатXpath = Root.ВычислитьВыражениеXpath("./b:value", node, размыватель);	
-	Пока Истина Цикл
-		Узел = РезультатXpath.ПолучитьСледующий();
-		Если Узел=Неопределено Тогда Прервать КонецЕсли;
-		args.Добавить(Узел);		
-	КонецЦикла;
-	Возврат args; 	
-КонецФункции
-
-Процедура simple_block_get_fields(node, path, context, block_context)
-	fields = simple_block_get_nodes_fields(node);
-	Если Не fields = Неопределено Тогда
-		Для i=0 По fields.Количество()-1 Цикл
-			_param_name = fields[i].ПолучитьАтрибут("name");
-			ВставитьСвойствоЕслиНет(block_context, _param_name, fields[i].ТекстовоеСодержимое);
-		КонецЦикла;	
-	КонецЕсли;		
-КонецПроцедуры	
-
-Процедура simple_block_get_args(node, path, context, block_context)
-	Args = simple_block_get_nodes_args(node);
-	blockType =  block_context.__type;
-	Если Не args = Неопределено Тогда
-		Для i=0 По args.Количество()-1 Цикл
-			_param_name = args[i].ПолучитьАтрибут("name");
-			Если Не block_context.Свойство(_param_name) Тогда
-				Попытка
-					value = block_execute_all_next(Args[i], path +"."+_param_name, context, block_context)
-				Исключение
-					ИнфОбОшибке = ИнформацияОбОшибке();
-					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в расчете параметра блока", " (" + blockType + "."+_param_name+")", Новый Структура("__id", block_context.__id)));
-				КонецПопытки;
-				Попытка
-					ВставитьСвойствоЕслиНет(block_context, _param_name, value);
-				Исключение
-					ИнфОбОшибке = ИнформацияОбОшибке();
-					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Невалидное имя параметра блока", " (" + blockType + "."+_param_name+ ")", Новый Структура("__id", block_context.__id)));
-				КонецПопытки;
-			КонецЕсли;	
-		КонецЦикла;		
-	КонецЕсли;						
-КонецПроцедуры	
-
 Функция simple_block_execute(block_type, node, path, context, block_context)
 	simple_block_get_args(node, path, context, block_context);
 	simple_block_get_fields(node, path, context, block_context);
@@ -153,6 +91,8 @@
 			result = block_api3_paymentcharacter_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_leave_type" Тогда
 			result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "api3_predefined" Тогда
+			result = block_api3_predefined_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsys_read" Тогда
 			result = block_extsys_read_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
@@ -171,6 +111,12 @@
 			Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "saby_read_changes" Тогда
 			result = saby_read_changes_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_ref" Тогда
+			result = block_c1_ref_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_meta_read" Тогда
+			result = block_c1_meta_read_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_meta_update" Тогда
+			result = block_c1_meta_update_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			ВызватьИсключение ЗначениеВСтрокуВнутр(ExtException(Новый Структура("message, detail", "Не найден блок", block_type), ));
 		КонецЕсли;
@@ -178,6 +124,68 @@
 	КонецЕсли;	
 	Возврат block_context["result"];	
 КонецФункции	
+
+Функция simple_block_get_nodes_fields(node)
+	fields = Новый Массив;
+	Попытка
+		РезультатXpath = Root.ВычислитьВыражениеXpath("./b:field", node, размыватель);	
+		Пока Истина Цикл
+			Узел = РезультатXpath.ПолучитьСледующий();
+			Если Узел=Неопределено Тогда Прервать КонецЕсли;
+			fields.Добавить(Узел);		
+		КонецЦикла;
+	Исключение
+		ИнфОбОшибке = ИнформацияОбОшибке();
+		ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в блоке"));
+	КонецПопытки;
+	
+	Возврат fields;	
+КонецФункции	
+
+Функция simple_block_get_nodes_args(node)	
+	args = Новый Массив;
+	РезультатXpath = Root.ВычислитьВыражениеXpath("./b:value", node, размыватель);	
+	Пока Истина Цикл
+		Узел = РезультатXpath.ПолучитьСледующий();
+		Если Узел=Неопределено Тогда Прервать КонецЕсли;
+		args.Добавить(Узел);		
+	КонецЦикла;
+	Возврат args; 	
+КонецФункции
+
+Процедура simple_block_get_fields(node, path, context, block_context)
+	fields = simple_block_get_nodes_fields(node);
+	Если Не fields = Неопределено Тогда
+		Для i=0 По fields.Количество()-1 Цикл
+			_param_name = fields[i].ПолучитьАтрибут("name");
+			ВставитьСвойствоЕслиНет(block_context, _param_name, fields[i].ТекстовоеСодержимое);
+		КонецЦикла;	
+	КонецЕсли;		
+КонецПроцедуры	
+
+Процедура simple_block_get_args(node, path, context, block_context)
+	Args = simple_block_get_nodes_args(node);
+	blockType =  block_context.__type;
+	Если Не args = Неопределено Тогда
+		Для i=0 По args.Количество()-1 Цикл
+			_param_name = args[i].ПолучитьАтрибут("name");
+			Если Не block_context.Свойство(_param_name) Тогда
+				Попытка
+					value = block_execute_all_next(Args[i], path +"."+_param_name, context, block_context)
+				Исключение
+					ИнфОбОшибке = ИнформацияОбОшибке();
+					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в расчете параметра блока", " (" + blockType + "."+_param_name+")", Новый Структура("__id", block_context.__id)));
+				КонецПопытки;
+				Попытка
+					ВставитьСвойствоЕслиНет(block_context, _param_name, value);
+				Исключение
+					ИнфОбОшибке = ИнформацияОбОшибке();
+					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Невалидное имя параметра блока", " (" + blockType + "."+_param_name+ ")", Новый Структура("__id", block_context.__id)));
+				КонецПопытки;
+			КонецЕсли;	
+		КонецЦикла;		
+	КонецЕсли;						
+КонецПроцедуры	
 
 Функция Block_check_required_param_in_block_context(required_param, block_context)
 	Для каждого param Из required_param Цикл

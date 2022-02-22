@@ -10,6 +10,9 @@
 #Область include_BlocklyExecutor_src_Helper_ArrayHelper
 #КонецОбласти
 
+#Область include_BlocklyExecutor_src_Helper_Helper
+#КонецОбласти
+
 #Область include_BlocklyExecutor_src_BlocklyTemplates_SimpleBlock
 #КонецОбласти
 

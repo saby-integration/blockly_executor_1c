@@ -23,14 +23,10 @@
 			Возврат procedures_callreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_call_select" Тогда
 			Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-		ИначеЕсли block_type = "c1_ref" Тогда
-			Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		//ИначеЕсли block_type = "c1_ref" Тогда
+		//	Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "c1_meta_create" Тогда
 			Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-		ИначеЕсли block_type = "c1_meta_update" Тогда
-			Возврат block_c1_meta_update_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-		ИначеЕсли block_type = "c1_meta_read" Тогда
-			Возврат block_c1_meta_read_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "c1_get_uuid" Тогда
 			Возврат block_c1_get_uuid_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
 		ИначеЕсли block_type = "c1_execute" Тогда
@@ -40,7 +36,7 @@
 		ИначеЕсли block_type = "saby_extsyncobj_list" Тогда
 			Возврат saby_extsyncobj_list_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "api3_timesheets_table" Тогда
-			block_api3_timesheets_table_execute(block_type, node, path, context, block_context);
+			Возврат block_api3_timesheets_table_execute(block_type, node, path, context, block_context);
 		Иначе
 			Возврат simple_block_execute(block_type, node, path, context, block_context);	
 		КонецЕсли;
@@ -63,8 +59,6 @@
 	КонецЕсли;
 	
 	ВставитьСвойствоЕслиНет(block_context, "Index", 0);
-	
-	//simple_block_get_args(node, path, context, block_context);
 	simple_block_get_fields(node, path, context, block_context);
 	
 	ArgItems = "_ТаблДок";
@@ -234,11 +228,7 @@
 КонецФункции	
 
 Функция Block_set_variable(context, name, value)
-	Если context.variables.Получить(name) <> Неопределено Тогда
-		context.variables.Вставить(name, value);
-	Иначе
-		context.variables.Вставить(name, value);
-	КонецЕсли;	
+	context.variables.Вставить(name, value);
 	Возврат Неопределено;
 КонецФункции
 

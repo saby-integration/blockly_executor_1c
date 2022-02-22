@@ -24,7 +24,7 @@
 		Для j=0 По total_size-1 Цикл
 			node_value = Block_lists_create_with_get_node_add(node, j);
 			Если node_value = Неопределено Тогда
-				ВызватьИсключение "плохой блок ADD"+j;
+				Продолжить;
 			КонецЕсли;	
 			result = Block_execute_all_next(node_value, path+"."+j, context, block_context);
 			block_context["value"].Добавить(result);
