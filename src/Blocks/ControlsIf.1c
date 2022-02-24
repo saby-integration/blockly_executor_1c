@@ -11,7 +11,7 @@
 		Иначе
 			node_if = Block_controls_if_get_node_if(node, j);
 			Если node_if = Неопределено Тогда
-				ВызватьИсключение "Bad " + _key + path;
+				ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException( Новый Структура("message, detail",  "Bad " + _key, path), ) );
 			КонецЕсли;	
 			result = Block_execute_all_next(node_if, path+"."+"if"+j, context, block_context);
 			ВставитьСвойствоЕслиНет(block_context, _key, result);
@@ -32,7 +32,7 @@
 		Если defined_else Тогда
 			node_do = Block_controls_if_get_node_else(node);
 			Если node_do = Неопределено Тогда
-				ВызватьИсключение "Bad else DO " + path;
+				ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException( Новый Структура("message, detail",  "Bad else DO ", path), ) );
 			КонецЕсли;	
 			Возврат Block_execute_all_next(node_do, path+"."+"else", context, block_context, True);
 		КонецЕсли;	

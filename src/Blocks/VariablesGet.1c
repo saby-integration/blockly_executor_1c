@@ -5,6 +5,6 @@
 	Попытка
 		Возврат block_get_variable(context, block_context["VAR"]);
 	Исключение
-		ВызватьИсключение "Переменная " + block_context["VAR"] + " не определена"
+		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException( Новый Структура("message, detail", "Переменная " + block_context["VAR"] + " не определена", "variables_get_calc_value"), ) );
 	КонецПопытки
 КонецФункции

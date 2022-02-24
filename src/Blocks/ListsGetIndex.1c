@@ -6,21 +6,21 @@
 		if where = "FROM_START" Тогда
 			Возврат array[block_context["AT"]];
 		ИначеЕсли where = "FROM_END" Тогда
-			ВызватьИсключение "В блоке get index не поддерживается "+ where
+			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 		ИначеЕсли where = "FIRST" Тогда
-			ВызватьИсключение "В блоке get index не поддерживается "+ where
+			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 		ИначеЕсли where = "LAST" Тогда
-			ВызватьИсключение "В блоке get index не поддерживается "+ where
+			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 		ИначеЕсли where = "RANDOM" Тогда
-			ВызватьИсключение "В блоке get index не поддерживается "+ where
+			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 		Иначе
-			ВызватьИсключение "В блоке get index не поддерживается "+ where
+			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 		КонецЕсли;	
 	ИначеЕсли mode = "GET_REMOVE" Тогда
-		ВызватьИсключение "В блоке get index не поддерживается "+ where
+		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 	ИначеЕсли mode = "REMOVE" Тогда
-		ВызватьИсключение "В блоке get index не поддерживается "+ where
+		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 	Иначе
-		ВызватьИсключение "В блоке get index не поддерживается "+ where
+		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
 	КонецЕсли;	
 КонецФункции

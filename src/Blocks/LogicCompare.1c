@@ -8,6 +8,6 @@
 	Если operation = "EQ" Тогда
 		Возврат ?(block_context["A"] = block_context["B"], Истина, Ложь);
 	Иначе
-		ВызватьИсключение operation + " не поддерживается"
+		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException( Новый Структура("message, detail", operation + " не поддерживается", "logic_compare_calc_value"), ) );		
 	КонецЕсли;	
 КонецФункции
