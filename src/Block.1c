@@ -20,7 +20,7 @@
 		ИначеЕсли block_type = "procedures_defreturn" Тогда
 			Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "procedures_callreturn" Тогда
-			Возврат procedures_callreturn_execute(block_type, node, path, context, block_context);
+			Возврат block_procedures_callreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_call_select" Тогда
 			Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		//ИначеЕсли block_type = "c1_ref" Тогда
@@ -42,7 +42,7 @@
 		КонецЕсли;
 	Исключение
 		ИнфОбОшибке = ИнформацияОбОшибке();
-		ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в блоке", " (" + blockType + ")", Новый Структура("__id", block_context.__id)));
+		ВызватьИсключение NewExtExceptionСтрока(ИнфОбОшибке,,,"Ошибка в блоке (" + blockType + ")", add_block_to_dump(block_context));
 	КонецПопытки;
 	Возврат Неопределено;
 КонецФункции
@@ -95,13 +95,13 @@
 					value = block_execute_all_next(Args[i], path +"."+_param_name, context, block_context)
 				Исключение
 					ИнфОбОшибке = ИнформацияОбОшибке();
-					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в расчете параметра блока", " (" + blockType + "."+_param_name+")", Новый Структура("__id", block_context.__id)));
+					ВызватьИсключение(NewExtExceptionСтрока(ИнфОбОшибке, "Ошибка в расчете параметра блока", "(" + blockType + "."+_param_name+")",, add_block_to_dump(block_context)));
 				КонецПопытки;
 				Попытка
 					ВставитьСвойствоЕслиНет(block_context, _param_name, value);
 				Исключение
 					ИнфОбОшибке = ИнформацияОбОшибке();
-					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Невалидное имя параметра блока", " (" + blockType + "."+_param_name+ ")", Новый Структура("__id", block_context.__id)));
+					ВызватьИсключение(NewExtExceptionСтрока(ИнфОбОшибке, "Невалидное имя параметра блока", " (" + blockType + "."+_param_name+ ")",, add_block_to_dump(block_context)));
 				КонецПопытки;
 			КонецЕсли;
 		КонецЦикла;		
@@ -177,26 +177,17 @@
 			Если block_context.__id = selected Тогда
 				Step = block_context.__id;
 				Currentblock_context = block_context;
-				
-				ОшибкаСтруктура = ExtException( Новый Структура("type", "StepForward"), );
-				ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
-				ВызватьИсключение ОшибкаСтрокой;
+				ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
 			КонецЕсли	
 		ИначеЕсли ЗначениеЗаполнено(NextStep) Тогда			
 			Step = block_context.__id;
 			Currentblock_context = block_context;
-			
-			ОшибкаСтруктура = ExtException( Новый Структура("type", "StepForward"), );
-			ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
-			ВызватьИсключение ОшибкаСтрокой;
+			ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
 		ИначеЕсли block_context.__id = step Тогда
 			Если nextStep = Ложь Тогда  
 				Step = block_context.__id;
 				Currentblock_context = block_context;
-				
-				ОшибкаСтруктура = ExtException( Новый Структура("type", "StepForward"), );
-				ОшибкаСтрокой	= ЗначениеВСтрокуВнутр(ОшибкаСтруктура);
-				ВызватьИсключение ОшибкаСтрокой;
+			ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
 			Иначе
 				nextStep = Истина;  
 			КонецЕсли;

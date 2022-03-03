@@ -117,15 +117,17 @@
 			result = block_c1_meta_read_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_meta_update" Тогда
 			result = block_c1_meta_update_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "logic_boolean" Тогда
+			result = block_logic_boolean_calc_value(block_type, node, path, context, block_context);
 		Иначе
-			ВызватьИсключение ЗначениеВСтрокуВнутр(ExtException(Новый Структура("message, detail", "Не найден блок", block_type), ));
+			ВызватьИсключение NewExtExceptionСтрока(,"Нет реализации для блока", block_type);
 		КонецЕсли;
 		ВставитьСвойствоЕслиНет(block_context, "result", result);
 	КонецЕсли;	
 	Возврат block_context["result"];	
 КонецФункции	
 
-Функция simple_block_get_nodes_fields(node)
+Функция simple_block_get_nodes_fields(node, block_context)
 	fields = Новый Массив;
 	Попытка
 		РезультатXpath = Root.ВычислитьВыражениеXpath("./b:field", node, размыватель);	
@@ -136,7 +138,7 @@
 		КонецЦикла;
 	Исключение
 		ИнфОбОшибке = ИнформацияОбОшибке();
-		ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в блоке"));
+		ВызватьИсключение NewExtExceptionСтрока(ИнфОбОшибке,,,,add_block_to_dump(block_context));
 	КонецПопытки;
 	
 	Возврат fields;	
@@ -154,7 +156,7 @@
 КонецФункции
 
 Процедура simple_block_get_fields(node, path, context, block_context)
-	fields = simple_block_get_nodes_fields(node);
+	fields = simple_block_get_nodes_fields(node, block_context);
 	Если Не fields = Неопределено Тогда
 		Для i=0 По fields.Количество()-1 Цикл
 			_param_name = fields[i].ПолучитьАтрибут("name");
@@ -174,13 +176,13 @@
 					value = block_execute_all_next(Args[i], path +"."+_param_name, context, block_context)
 				Исключение
 					ИнфОбОшибке = ИнформацияОбОшибке();
-					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Ошибка в расчете параметра блока", " (" + blockType + "."+_param_name+")", Новый Структура("__id", block_context.__id)));
+					ВызватьИсключение(NewExtExceptionСтрока(ИнфОбОшибке,,,"Ошибка в расчете параметра блока (" + blockType + "."+_param_name+")", add_block_to_dump(block_context)));
 				КонецПопытки;
 				Попытка
 					ВставитьСвойствоЕслиНет(block_context, _param_name, value);
 				Исключение
 					ИнфОбОшибке = ИнформацияОбОшибке();
-					ВызватьИсключение(NewExtException(ИнфОбОшибке, "Невалидное имя параметра блока", " (" + blockType + "."+_param_name+ ")", Новый Структура("__id", block_context.__id)));
+					ВызватьИсключение(NewExtExceptionСтрока(ИнфОбОшибке,,,"Невалидное имя параметра блока (" + blockType + "."+_param_name+ ")", add_block_to_dump(block_context)));
 				КонецПопытки;
 			КонецЕсли;	
 		КонецЦикла;		

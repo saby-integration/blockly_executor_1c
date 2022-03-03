@@ -6,21 +6,21 @@
 		if where = "FROM_START" Тогда
 			Возврат array[block_context["AT"]];
 		ИначеЕсли where = "FROM_END" Тогда
-			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+			ВызватьИсключение "В блоке get index не поддерживается "+ where
 		ИначеЕсли where = "FIRST" Тогда
-			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+			ВызватьИсключение "В блоке get index не поддерживается "+ where
 		ИначеЕсли where = "LAST" Тогда
-			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+			ВызватьИсключение "В блоке get index не поддерживается "+ where
 		ИначеЕсли where = "RANDOM" Тогда
-			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+			ВызватьИсключение "В блоке get index не поддерживается "+ where
 		Иначе
-			ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+			ВызватьИсключение "В блоке get index не поддерживается "+ where
 		КонецЕсли;	
 	ИначеЕсли mode = "GET_REMOVE" Тогда
-		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+		ВызватьИсключение "В блоке get index не поддерживается "+ where
 	ИначеЕсли mode = "REMOVE" Тогда
-		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+		ВызватьИсключение "В блоке get index не поддерживается "+ where
 	Иначе
-		ВызватьИсключение ЗначениеВСтрокуВнутр( ExtException(  Новый Структура("message, detail", "В блоке get index не поддерживается "+ where, "mode - "+mode), ) );
+		ВызватьИсключение "В блоке get index не поддерживается "+ where
 	КонецЕсли;	
 КонецФункции

@@ -1,4 +1,4 @@
-Функция procedures_callreturn_execute(block_type, node, path, context, block_context)
+Функция block_procedures_callreturn_execute(block_type, node, path, context, block_context)
 	
 	Если НЕ block_context.Свойство("result") Тогда
 		endpoint_args_values = procedures_callreturn_get_params(node);
