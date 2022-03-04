@@ -31,68 +31,6 @@
 			result = block_extsyncdoc_write_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsyncdoc_run" Тогда
 			result = block_extsyncdoc_run_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_link" Тогда
-			result = block_api3_link_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_hiring" Тогда
-			result = block_api3_hiring_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_changeposition" Тогда
-			result = block_api3_changeposition_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_dismissal" Тогда
-			result = block_api3_dismissal_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_leave" Тогда
-			result = block_api3_leave_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_person" Тогда
-			result = block_api3_person_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_employee" Тогда
-			result = block_api3_employee_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_org" Тогда
-			result = block_api3_org_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_department" Тогда
-			result = block_api3_department_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_position" Тогда
-			result = block_api3_position_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_planworkshedule" Тогда
-			result = block_api3_planworkshedule_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_leavetype" Тогда
-			result = block_api3_leavetype_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_kinship" Тогда
-			result = block_api3_kinship_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_truancy" Тогда
-			result = block_api3_truancy_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_documenttype" Тогда
-			result = block_api3_documenttype_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_businesstrip" Тогда
-			result = block_api3_businesstrip_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_timesheets" Тогда
-			result = block_api3_timesheets_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_sicknessreason" Тогда
-			result = block_api3_sicknessreason_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_familymember" Тогда
-			result = block_api3_familymember_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_timeoff" Тогда
-			result = block_api3_timeoff_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_timeofftype" Тогда
-			result = block_api3_timeofftype_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_vacationschedule" Тогда
-			result = block_api3_vacationschedule_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_indexation" Тогда
-			result = block_api3_indexation_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_childcareleave" Тогда
-			result = block_api3_childcareleave_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_reason" Тогда
-			result = block_api3_reason_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_sickleave" Тогда
-			result = block_api3_sickleave_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_changetermsemploym" Тогда
-			result = block_api3_changetermsemploym_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_employmenttype" Тогда
-			result = block_api3_employmenttype_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_paymentcharacter" Тогда
-			result = block_api3_paymentcharacter_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_leave_type" Тогда
-			result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "api3_predefined" Тогда
-			result = block_api3_predefined_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsys_read" Тогда
 			result = block_extsys_read_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
@@ -120,12 +58,85 @@
 		ИначеЕсли block_type = "logic_boolean" Тогда
 			result = block_logic_boolean_calc_value(block_type, node, path, context, block_context);
 		Иначе
-			ВызватьИсключение NewExtExceptionСтрока(,"Нет реализации для блока", block_type);
+			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;
 		ВставитьСвойствоЕслиНет(block_context, "result", result);
 	КонецЕсли;	
 	Возврат block_context["result"];	
 КонецФункции	
+
+Функция simple_api3_block_execute(block_type, node, path, context, block_context)
+	Если block_type = "api3_link" Тогда
+		result = block_api3_link_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_hiring" Тогда
+		result = block_api3_hiring_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_changeposition" Тогда
+		result = block_api3_changeposition_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_dismissal" Тогда
+		result = block_api3_dismissal_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_leave" Тогда
+		result = block_api3_leave_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_person" Тогда
+		result = block_api3_person_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_employee" Тогда
+		result = block_api3_employee_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_org" Тогда
+		result = block_api3_org_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_department" Тогда
+		result = block_api3_department_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_position" Тогда
+		result = block_api3_position_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_planworkshedule" Тогда
+		result = block_api3_planworkshedule_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_leavetype" Тогда
+		result = block_api3_leavetype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_kinship" Тогда
+		result = block_api3_kinship_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_truancy" Тогда
+		result = block_api3_truancy_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_documenttype" Тогда
+		result = block_api3_documenttype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_businesstrip" Тогда
+		result = block_api3_businesstrip_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheets" Тогда
+		result = block_api3_timesheets_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheets_table" Тогда
+		result = block_api3_timesheets_table_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheets_time" Тогда
+		result = block_api3_timesheets_time_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_sicknessreason" Тогда
+		result = block_api3_sicknessreason_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_familymember" Тогда
+		result = block_api3_familymember_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timeoff" Тогда
+		result = block_api3_timeoff_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timeofftype" Тогда
+		result = block_api3_timeofftype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_vacationschedule" Тогда
+		result = block_api3_vacationschedule_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_indexation" Тогда
+		result = block_api3_indexation_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_childcareleave" Тогда
+		result = block_api3_childcareleave_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_reason" Тогда
+		result = block_api3_reason_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_sickleave" Тогда
+		result = block_api3_sickleave_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_changetermsemploym" Тогда
+		result = block_api3_changetermsemploym_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_employmenttype" Тогда
+		result = block_api3_employmenttype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_paymentcharacter" Тогда
+		result = block_api3_paymentcharacter_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_leave_type" Тогда
+		result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_predefined" Тогда
+		result = block_api3_predefined_calc_value(block_type, node, path, context, block_context);
+	Иначе
+		ВызватьИсключение NewExtExceptionСтрока(,"Нет реализации для блока", block_type);
+	КонецЕсли;
+	Возврат result;
+КонецФункции
 
 Функция simple_block_get_nodes_fields(node, block_context)
 	fields = Новый Массив;
