@@ -57,6 +57,8 @@
 			result = block_c1_meta_update_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "logic_boolean" Тогда
 			result = block_logic_boolean_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_call_filter" Тогда
+			result = block_c1_call_filter_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;

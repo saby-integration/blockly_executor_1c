@@ -12,7 +12,7 @@
 	Возврат dump;
 КонецФункции
 
-Функция block_obj_get_path_value(знач obj, obj_path)
+Функция block_obj_get_path_value(знач obj, obj_path, obj_name)
 	delimiter = ".";
 	_path = СбисСтрРазделить(obj_path, delimiter, Ложь);
 	_obj = obj;
@@ -37,7 +37,7 @@
 			Попытка
 				_obj = _obj[elem];
 			Исключение	
-				ВызватьИсключение "obj_get_path_value: type in path "+obj_path+" not supported ("+_obj+")"
+				ВызватьИсключение NewExtExceptionСтрока(,"Не удалось получить свойство объекта","path "+obj_path+" not supported ("+obj_name+")","block_obj_get_path_value",obj);
 			КонецПопытки;	
 		КонецЕсли;	
 		Если _obj = Неопределено Тогда
