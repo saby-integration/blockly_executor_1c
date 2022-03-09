@@ -23,8 +23,8 @@
 			Возврат block_procedures_callreturn_execute(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_call_select" Тогда
 			Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-		//ИначеЕсли block_type = "c1_ref" Тогда
-		//	Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+			//ИначеЕсли block_type = "c1_ref" Тогда
+			//	Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "c1_meta_create" Тогда
 			Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "c1_get_uuid" Тогда
@@ -105,7 +105,7 @@
 			Если nextStep = Ложь Тогда  
 				Step = block_context.__id;
 				Currentblock_context = block_context;
-			ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
+				ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
 			Иначе
 				nextStep = Истина;  
 			КонецЕсли;
