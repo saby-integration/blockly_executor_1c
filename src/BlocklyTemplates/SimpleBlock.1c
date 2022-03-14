@@ -1,47 +1,3 @@
-Функция simple_block_get_nodes_fields(node)
-	fields = Новый Массив;
-	РезультатXpath = Root.ВычислитьВыражениеXpath("./b:field", node, размыватель);	
-	Пока Истина Цикл
-		Узел = РезультатXpath.ПолучитьСледующий();
-		Если Узел=Неопределено Тогда Прервать КонецЕсли;
-		fields.Добавить(Узел);		
-	КонецЦикла;
-	Возврат fields;	
-КонецФункции	
-
-Функция simple_block_get_nodes_args(node)	
-	args = Новый Массив;
-	РезультатXpath = Root.ВычислитьВыражениеXpath("./b:value", node, размыватель);	
-	Пока Истина Цикл
-		Узел = РезультатXpath.ПолучитьСледующий();
-		Если Узел=Неопределено Тогда Прервать КонецЕсли;
-		args.Добавить(Узел);		
-	КонецЦикла;
-	Возврат args; 	
-КонецФункции
-
-Процедура simple_block_get_fields(node, path, context, block_context)
-	fields = simple_block_get_nodes_fields(node);
-	Если Не fields = Неопределено Тогда
-		Для i=0 По fields.Количество()-1 Цикл
-			_param_name = fields[i].ПолучитьАтрибут("name");
-			ВставитьСвойствоЕслиНет(block_context, _param_name, fields[i].ТекстовоеСодержимое);
-		КонецЦикла;	
-	КонецЕсли;		
-КонецПроцедуры	
-
-Процедура simple_block_get_args(node, path, context, block_context)
-	Args = simple_block_get_nodes_args(node);
-	Если Не args = Неопределено Тогда
-		Для i=0 По args.Количество()-1 Цикл
-			_param_name = args[i].ПолучитьАтрибут("name");
-			Если Не block_context.Свойство(_param_name) Тогда
-				ВставитьСвойствоЕслиНет(block_context, _param_name, block_execute_all_next(Args[i], path + _param_name, context, block_context));
-			КонецЕсли;	
-		КонецЦикла;		
-	КонецЕсли;						
-КонецПроцедуры	
-
 Функция simple_block_execute(block_type, node, path, context, block_context)
 	simple_block_get_args(node, path, context, block_context);
 	simple_block_get_fields(node, path, context, block_context);
@@ -70,17 +26,181 @@
 		ИначеЕсли block_type = "get_current_datetime" Тогда
 			result = block_get_current_datetime_calc_value(block_type, node, path, context, block_context);		
 		ИначеЕсли block_type = "math_number" Тогда
-			result = block_math_number_calc_value(block_type, node, path, context, block_context);		
+			result = block_math_number_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "extsyncdoc_write" Тогда
+			result = block_extsyncdoc_write_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "extsyncdoc_run" Тогда
+			result = block_extsyncdoc_run_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "extsys_read" Тогда
+			result = block_extsys_read_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
+			result = block_c1_ref_to_obj_calc_value(block_type, node, path, context, block_context);
+			//ИначеЕсли block_type = "c1_doc_read_list_print_forms" Тогда
+			//	result = block_c1_doc_read_list_print_forms_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_doc_read_print_forms" Тогда
+			result = block_c1_doc_read_print_forms_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_upload_files" Тогда
+			result = block_saby_upload_files_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "extsys_update_status" Тогда
+			result = block_saby_extsys_update_status_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_read_document" Тогда
+			result = saby_read_document_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_download_from_link" Тогда
+			Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_read_changes" Тогда
+			result = saby_read_changes_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_ref" Тогда
+			result = block_c1_ref_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_meta_read" Тогда
+			result = block_c1_meta_read_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_meta_update" Тогда
+			result = block_c1_meta_update_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "logic_boolean" Тогда
 			result = block_logic_boolean_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_call_filter" Тогда
+			result = block_c1_call_filter_calc_value(block_type, node, path, context, block_context);
 		Иначе
-			Сообщить("Не найден блок: " + block_type);
-			Result =  Неопределено;
+			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;
 		ВставитьСвойствоЕслиНет(block_context, "result", result);
 	КонецЕсли;	
 	Возврат block_context["result"];	
 КонецФункции	
+
+Функция simple_api3_block_execute(block_type, node, path, context, block_context)
+	Если block_type = "api3_link" Тогда
+		result = block_api3_link_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_hiring" Тогда
+		result = block_api3_hiring_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_changeposition" Тогда
+		result = block_api3_changeposition_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_dismissal" Тогда
+		result = block_api3_dismissal_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_leave" Тогда
+		result = block_api3_leave_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_person" Тогда
+		result = block_api3_person_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_employee" Тогда
+		result = block_api3_employee_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_org" Тогда
+		result = block_api3_org_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_department" Тогда
+		result = block_api3_department_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_position" Тогда
+		result = block_api3_position_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_planworkshedule" Тогда
+		result = block_api3_planworkshedule_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_leavetype" Тогда
+		result = block_api3_leavetype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_kinship" Тогда
+		result = block_api3_kinship_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_truancy" Тогда
+		result = block_api3_truancy_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_documenttype" Тогда
+		result = block_api3_documenttype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_businesstrip" Тогда
+		result = block_api3_businesstrip_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheets" Тогда
+		result = block_api3_timesheets_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheets_table" Тогда
+		result = block_api3_timesheets_table_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheets_time" Тогда
+		result = block_api3_timesheets_time_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_sicknessreason" Тогда
+		result = block_api3_sicknessreason_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_familymember" Тогда
+		result = block_api3_familymember_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timeoff" Тогда
+		result = block_api3_timeoff_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timeofftype" Тогда
+		result = block_api3_timeofftype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_vacationschedule" Тогда
+		result = block_api3_vacationschedule_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_indexation" Тогда
+		result = block_api3_indexation_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_childcareleave" Тогда
+		result = block_api3_childcareleave_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_reason" Тогда
+		result = block_api3_reason_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_sickleave" Тогда
+		result = block_api3_sickleave_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_changetermsemploym" Тогда
+		result = block_api3_changetermsemploym_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_employmenttype" Тогда
+		result = block_api3_employmenttype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_paymentcharacter" Тогда
+		result = block_api3_paymentcharacter_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_leave_type" Тогда
+		result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_predefined" Тогда
+		result = block_api3_predefined_calc_value(block_type, node, path, context, block_context);
+	Иначе
+		ВызватьИсключение NewExtExceptionСтрока(,"Нет реализации для блока", block_type);
+	КонецЕсли;
+	Возврат result;
+КонецФункции
+
+Функция simple_block_get_nodes_fields(node, block_context)
+	fields = Новый Массив;
+	Попытка
+		РезультатXpath = Root.ВычислитьВыражениеXpath("./b:field", node, размыватель);	
+		Пока Истина Цикл
+			Узел = РезультатXpath.ПолучитьСледующий();
+			Если Узел=Неопределено Тогда Прервать КонецЕсли;
+			fields.Добавить(Узел);		
+		КонецЦикла;
+	Исключение
+		ИнфОбОшибке = ИнформацияОбОшибке();
+		ВызватьИсключение NewExtExceptionСтрока(ИнфОбОшибке,,,,add_block_to_dump(block_context));
+	КонецПопытки;
+	
+	Возврат fields;	
+КонецФункции	
+
+Функция simple_block_get_nodes_args(node)	
+	args = Новый Массив;
+	РезультатXpath = Root.ВычислитьВыражениеXpath("./b:value", node, размыватель);	
+	Пока Истина Цикл
+		Узел = РезультатXpath.ПолучитьСледующий();
+		Если Узел=Неопределено Тогда Прервать КонецЕсли;
+		args.Добавить(Узел);		
+	КонецЦикла;
+	Возврат args; 	
+КонецФункции
+
+Процедура simple_block_get_fields(node, path, context, block_context)
+	fields = simple_block_get_nodes_fields(node, block_context);
+	Если Не fields = Неопределено Тогда
+		Для i=0 По fields.Количество()-1 Цикл
+			_param_name = fields[i].ПолучитьАтрибут("name");
+			ВставитьСвойствоЕслиНет(block_context, _param_name, fields[i].ТекстовоеСодержимое);
+		КонецЦикла;	
+	КонецЕсли;		
+КонецПроцедуры	
+
+Процедура simple_block_get_args(node, path, context, block_context)
+	Args = simple_block_get_nodes_args(node);
+	blockType =  block_context.__type;
+	Если Не args = Неопределено Тогда
+		Для i=0 По args.Количество()-1 Цикл
+			_param_name = args[i].ПолучитьАтрибут("name");
+			Если Не block_context.Свойство(_param_name) Тогда
+				Попытка
+					value = block_execute_all_next(Args[i], path +"."+_param_name, context, block_context)
+				Исключение
+					ИнфОбОшибке = ИнформацияОбОшибке();
+					ВызватьИсключение(NewExtExceptionСтрока(ИнфОбОшибке,,,"Ошибка в расчете параметра блока (" + blockType + "."+_param_name+")", add_block_to_dump(block_context)));
+				КонецПопытки;
+				Попытка
+					ВставитьСвойствоЕслиНет(block_context, _param_name, value);
+				Исключение
+					ИнфОбОшибке = ИнформацияОбОшибке();
+					ВызватьИсключение(NewExtExceptionСтрока(ИнфОбОшибке,,,"Невалидное имя параметра блока (" + blockType + "."+_param_name+ ")", add_block_to_dump(block_context)));
+				КонецПопытки;
+			КонецЕсли;	
+		КонецЦикла;		
+	КонецЕсли;						
+КонецПроцедуры	
 
 Функция Block_check_required_param_in_block_context(required_param, block_context)
 	Для каждого param Из required_param Цикл
