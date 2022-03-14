@@ -418,9 +418,20 @@
 	Попытка
 		Ini = ПрочитатьИзХранилища("BlocklyExecutor", "Ini",, ПараметрыСеанса.ТекущийПользователь);
 		context = ПрочитатьИзХранилища("BlocklyExecutor", "context",, ПараметрыСеанса.ТекущийПользователь);
-		context.Вставить("param", ПрочитатьИзХранилища("BlocklyExecutor", "param",, ПараметрыСеанса.ТекущийПользователь));
+		context_param	= ПрочитатьИзХранилища("BlocklyExecutor", "param",, ПараметрыСеанса.ТекущийПользователь);
 		Ini = ?(Ini = Неопределено, Неопределено, decode_xml_xdto(Ini));
-		context = ?(context = Неопределено, Неопределено, decode_xml_xdto(context));
+		Если Ini = Неопределено Тогда
+			Ini = Новый Соответствие;
+		КонецЕсли;	
+		Если context = Неопределено Тогда
+			context = new_context();
+		Иначе
+			context = decode_xml_xdto(context);
+		КонецЕсли;
+		Если context_param = Неопределено Тогда
+			context_param = новый Структура;
+		КонецЕсли;
+		context.Вставить("param", context_param); 
 	Исключение
 		Ошибка = ОписаниеОшибки();
 	КонецПопытки;
