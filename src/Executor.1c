@@ -16,18 +16,21 @@
 	Попытка
 		result = block_execute(Робот.type, Робот.node, "", context, context.debug);
 	Исключение
-		Ошибка = ОписаниеОшибки();	
-		Если Найти(Ошибка, "StepForward") Тогда
+		
+		ИнфОбОшибке = ИнформацияОбОшибке();
+		ОшибкаСтруктура = NewExtExceptionСтруктура(ИнфОбОшибке);
+		Если ОшибкаСтруктура.type = "StepForward" Тогда
 			Если Currentblock_context.Свойство("value") И Найти(ТипЗнч(Currentblock_context.value),"объект") Тогда
 				Currentblock_context.value = ПолучитьСтруктуруИзОбъекта(Currentblock_context.value);
 			КонецЕсли;
 			ОтладкаПеременных(context.variables);	
-			Возврат Новый Структура ("step, stepByStep, variables, data, status", Currentblock_context.id, StepByStep, context.variables, Currentblock_context, "run"); 			
+			Возврат Новый Структура ("step, stepByStep, variables, data, status", Currentblock_context.__id, StepByStep, context.variables, Currentblock_context, "run"); 			
 		Иначе
-			Х =1;
-		КонецЕсли;	
+			Возврат Новый Структура("data, status", ОшибкаСтруктура, "error");
+		КонецЕсли;
+		
 	КонецПопытки;
-	Возврат Новый структура("data, variables, status", result, context.variables, "complete");
+	Возврат Новый Структура("data, variables, status", result, context.variables, "complete");
 КонецФункции
 
 Процедура blockly_executor_read_procedures_and_functions()

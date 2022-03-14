@@ -1,43 +1,47 @@
 Функция block_execute(block_type, node, path, context, block_context)
-	block_context.Вставить("id",node.ПолучитьАтрибут("id"));
-	block_context.Вставить("__path",node.ПолучитьАтрибут("path"));
-	Если block_type = "procedures_defnoreturn" Тогда
-		Возврат block_procedures_defnoreturn_execute(block_type, node, path, context, block_context);	
-	ИначеЕсли block_type = "new_obj" Тогда
-		Возврат block_new_obj_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "text" Тогда
-		Возврат block_text_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "controls_if" Тогда
-		Возврат block_controls_if_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "lists_create_with" Тогда
-		Возврат block_lists_create_with_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "procedures_callnoreturn" Тогда
-		Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "procedures_defreturn" Тогда
-		Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "procedures_callreturn" Тогда
-		Возврат procedures_callreturn_execute(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "c1_call_select" Тогда
-		Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_ref" Тогда
-		Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_meta_create" Тогда
-		Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_meta_update" Тогда
-		Возврат block_c1_meta_update_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_meta_read" Тогда
-		Возврат block_c1_meta_read_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "c1_get_uuid" Тогда
-		Возврат block_c1_get_uuid_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
-	ИначеЕсли block_type = "c1_execute" Тогда
-		Возврат block_c1_execute_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
-	ИначеЕсли block_type = "c1_clear_table" Тогда
-		Возврат block_c1_clear_table_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-	ИначеЕсли block_type = "saby_download_from_link" Тогда
-		Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
-	Иначе
-		Возврат simple_block_execute(block_type, node, path, context, block_context);	
-	КонецЕсли;
+	blockType = node.ПолучитьАтрибут("type");
+	path = path+"."+blockType;
+	block_context.Вставить("__id",node.ПолучитьАтрибут("id"));
+	block_context.Вставить("__path",path);
+	block_context.Вставить("__type",blockType);
+	Попытка
+		Если block_type = "procedures_defnoreturn" Тогда
+			Возврат block_procedures_defnoreturn_execute(block_type, node, path, context, block_context);	
+		ИначеЕсли block_type = "new_obj" Тогда
+			Возврат block_new_obj_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "text" Тогда
+			Возврат block_text_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "controls_if" Тогда
+			Возврат block_controls_if_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "lists_create_with" Тогда
+			Возврат block_lists_create_with_execute(block_type, node, path, context, block_context);
+			//ИначеЕсли block_type = "procedures_callnoreturn" Тогда
+			//	Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "procedures_defreturn" Тогда
+			Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "procedures_callreturn" Тогда
+			Возврат block_procedures_callreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_call_select" Тогда
+			Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+			//ИначеЕсли block_type = "c1_ref" Тогда
+			//	Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_meta_create" Тогда
+			Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_get_uuid" Тогда
+			Возврат block_c1_get_uuid_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
+		ИначеЕсли block_type = "c1_execute" Тогда
+			Возврат block_c1_execute_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
+		ИначеЕсли block_type = "c1_clear_table" Тогда
+			Возврат block_c1_clear_table_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "saby_extsyncobj_list" Тогда
+			Возврат saby_extsyncobj_list_calc_value(block_type, node, path, context, block_context);
+		Иначе
+			Возврат simple_block_execute(block_type, node, path, context, block_context);	
+		КонецЕсли;
+	Исключение
+		ИнфОбОшибке = ИнформацияОбОшибке();
+		ВызватьИсключение NewExtExceptionСтрока(ИнфОбОшибке,,,"Ошибка в блоке (" + blockType + ")", add_block_to_dump(block_context));
+	КонецПопытки;
 	Возврат Неопределено;
 КонецФункции
 
@@ -50,17 +54,17 @@
 	result = Неопределено;
 	Пока Истина Цикл
 		Попытка
-				_child_context = child_context["i" + statement_number]
-			Исключение
-				child_context.Вставить("i" + statement_number, Новый Структура);
-			КонецПопытки;	
+			_child_context = child_context["i" + statement_number]
+		Исключение
+			child_context.Вставить("i" + statement_number, Новый Структура);
+		КонецПопытки;	
 		child = block_get_child_block(node);
 		next_node = Неопределено;
 		Если НЕ child = Неопределено  Тогда
 			next_node = ?(statement,block_get_next_statement(child), Неопределено);
 			block_subtype = child.ПолучитьАтрибут("type");
 			Если НЕ child_context.Свойство("__result") Тогда
-				path = path+"."+child.ПолучитьАтрибут("id");
+				//path = path+"."+child.ПолучитьАтрибут("id");
 				result = block_execute(block_subtype, child, path, context, child_context["i" + statement_number]);
 			КонецЕсли;
 			
@@ -88,20 +92,20 @@
 Процедура Block_check_step(context, block_context)
 	Если StepByStep Тогда
 		Если ЗначениеЗаполнено(selected) Тогда
-			Если block_context.id = selected Тогда
-				Step = block_context.id;
+			Если block_context.__id = selected Тогда
+				Step = block_context.__id;
 				Currentblock_context = block_context;
-				ВызватьИсключение "StepForward" 
+				ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
 			КонецЕсли	
 		ИначеЕсли ЗначениеЗаполнено(NextStep) Тогда			
-			Step = block_context.id;
+			Step = block_context.__id;
 			Currentblock_context = block_context;
-			ВызватьИсключение "StepForward"
-		ИначеЕсли block_context.id = step Тогда
+			ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
+		ИначеЕсли block_context.__id = step Тогда
 			Если nextStep = Ложь Тогда  
-				Step = block_context.id;
+				Step = block_context.__id;
 				Currentblock_context = block_context;
-				ВызватьИсключение "StepForward"
+				ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
 			Иначе
 				nextStep = Истина;  
 			КонецЕсли;
@@ -133,16 +137,12 @@
 КонецФункции	
 
 Функция Block_set_variable(context, name, value)
-	Если context.variables[name] <> Неопределено Тогда
-		context.variables[name] = value;
-	Иначе
-		context.variables.Вставить(name, value);
-	КонецЕсли;	
+	context.variables.Вставить(name, value);
 	Возврат Неопределено;
 КонецФункции
 
 Функция Block_get_variable(context, name)
-	Возврат context.variables[name];
+	Возврат context.variables.Получить(name);
 КонецФункции
 
 Функция Block_get_mutation(node, Mutation_name, Default = Неопределено)
