@@ -10,10 +10,7 @@
 #Область include_BlocklyExecutor_src_Helper_ArrayHelper
 #КонецОбласти
 
-#Область include_BlocklyExecutor_src_Helper_Helper
-#КонецОбласти
-
-#Область include_BlocklyExecutor_src_BlocklyTemplates_SimpleBlock
+#Область include_BlocklyExecutor_src_BlockTemplates_SimpleBlock
 #КонецОбласти
 
 #Область include_BlocklyExecutor_src_Block
@@ -64,7 +61,7 @@
 #Область include_BlocklyExecutor_src_Blocks_ListsGetIndex
 #КонецОбласти
 
-#Область include_BlocklyExecutor_src_BlocksTemplates_MultiThreadLoop
+#Область include_BlocklyExecutor_src_BlockTemplates_MultiThreadLoop
 #КонецОбласти
 
 #Область include_BlocklyExecutor_src_Blocks_SabyDownloadFromLink
