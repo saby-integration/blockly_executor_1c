@@ -62,12 +62,9 @@
 	        block_context["index"] = i;
 			block_multithreadloop_on_loop(node, path, context, block_context);
 	        block_check_step(context, block_context);
-	        //# _block_context = copy_dict(block_context)
-			Попытка
-				block_multithreadloop_execute_item(block_type, node_loop, path+".0_"+block_context["index"],context, block_context, Истина);
-	        Исключение
-				Block_set_next_step(block_context);
-			КонецПопытки;
+			
+			block_multithreadloop_execute_item(block_type, node_loop, path+".0_"+block_context["index"],context, block_context, Истина);
+			
 			Block_set_step(block_context);
 	        block_multithreadloop_clear_child_context(block_context);
 		КонецЦикла;
