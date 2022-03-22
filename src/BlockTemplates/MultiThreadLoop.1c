@@ -1,0 +1,83 @@
+Функция block_multithreadloop_execute(block_type, node, path, context, block_context)
+	Возврат block_multithreadloop_execute_items(block_type, node, path, context, block_context);
+КонецФункции
+
+Функция block_multithreadloop_check_command_limit()
+	Возврат Истина;
+//Проверить на предел вызовов (стек??);  //len(self.operation['commands']) >= self.limit_commands
+КонецФункции
+
+Функция block_multithreadloop_on_before_loop(node, path, context, block_context)
+КонецФункции
+
+Функция  block_multithreadloop_execute_item(block_type, node, path, context, block_context, statement=False )
+	Если block_type = "saby_read_changes" Тогда
+		saby_read_changes_execute_item(node, path, context, block_context);
+	Иначе
+		Block_execute_all_next(node, path, context, block_context, statement);
+	КонецЕсли;
+КонецФункции
+
+Функция  block_multithreadloop_execute_get_items(block_type, node_loop, path, context, block_context)
+	Если block_type = "saby_read_changes" Тогда
+        block_context.Вставить("items", saby_read_changes_get_items(context, block_context));
+	ИначеЕсли block_type = "saby_extsyncobj_list" Тогда
+        block_context.Вставить("items", saby_extsyncobj_list_items(context, block_context));
+	КонецЕсли;
+КонецФункции
+	
+Функция block_multithreadloop_execute_items(block_type, node, path, context, block_context)
+	block_multithreadloop_on_before_loop(node, path, context, block_context); //Pyton true way
+	//var_name = nnode.ДочерниеУзлы[0].ТекстовоеСодержимое; //не используется
+	
+	Попытка
+		node_loop = node.ДочерниеУзлы[1];
+	Исключение
+		Возврат Неопределено;
+	КонецПопытки;
+			
+	Если Не block_context.Свойство("items") Тогда
+	    block_context.Вставить("items", Новый Массив());
+	КонецЕсли;
+	Если Не block_context.Свойство("index") Тогда
+		block_context.Вставить("index", 0);
+	КонецЕсли;
+	
+	Пока Истина Цикл
+	    Если block_context["items"].Количество() = 0 Тогда
+	        Попытка
+				block_context["page"] = block_context["page"] + 1;
+	        Исключение
+	            block_context.Вставить("page", 0);
+			КонецПопытки;
+			
+			block_multithreadloop_execute_get_items(block_type, node, path, context, block_context);
+	        block_context.Вставить("index", 0);
+			
+	        Если block_context["items"].Количество() = 0 или block_context["page"] > 100  Тогда //todo какая то херня. По последнему событию списка изменений вечное вычитывание
+	            Возврат Неопределено;
+			КонецЕсли;
+		КонецЕсли;
+	    Для i = block_context["index"] ПО block_context["items"].Количество()-1 Цикл
+	        block_context["index"] = i;
+			block_multithreadloop_on_loop(node, path, context, block_context);
+	        block_check_step(context, block_context);
+			
+			block_multithreadloop_execute_item(block_type, node_loop, path+".0_"+block_context["index"],context, block_context, Истина);
+			
+			Block_set_step(block_context);
+	        block_multithreadloop_clear_child_context(block_context);
+		КонецЦикла;
+	    block_context.Вставить("items", Новый Массив);
+	КонецЦикла;
+КонецФункции
+
+Функция block_multithreadloop_on_loop(node, path, context, block_context)
+	Block_set_variable(context, node.ДочерниеУзлы[0].ТекстовоеСодержимое, block_context["items"][block_context["index"]]);
+КонецФункции
+
+Функция block_multithreadloop_clear_child_context(block_context, result=Неопределено, delete_children = Истина)
+	Если delete_children Тогда
+		block_context.Вставить("__child", Неопределено);
+	КонецЕсли;
+КонецФункции
