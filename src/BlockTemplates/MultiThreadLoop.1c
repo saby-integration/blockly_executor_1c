@@ -54,7 +54,7 @@
 			block_multithreadloop_execute_get_items(block_type, node, path, context, block_context);
 	        block_context.Вставить("index", 0);
 			
-	        Если block_context["items"].Количество() = 0  Тогда
+	        Если block_context["items"].Количество() = 0 или block_context["page"] > 100  Тогда //todo какая то херня. По последнему событию списка изменений вечное вычитывание
 	            Возврат Неопределено;
 			КонецЕсли;
 		КонецЕсли;
