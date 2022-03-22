@@ -404,10 +404,10 @@
 Процедура СохранитьСессиюОтладки()
 	Попытка
 		Ini = ?(Ini = Неопределено, Неопределено, encode_xdto_xml(Ini));
-		context = ?(context = Неопределено, Неопределено, encode_xdto_xml(context));
 		ХранилищеОбщихНастроек.Сохранить("BlocklyExecutor", "Ini", Ini,, ПараметрыСеанса.ТекущийПользователь);
-		ХранилищеОбщихНастроек.Сохранить("BlocklyExecutor", "param", context.param,, ПараметрыСеанса.ТекущийПользователь);
-		context.удалить("param");
+		ХранилищеОбщихНастроек.Сохранить("BlocklyExecutor", "params", context.params,, ПараметрыСеанса.ТекущийПользователь);
+		context.удалить("params");
+		context = ?(context = Неопределено, Неопределено, encode_xdto_xml(context));
 		ХранилищеОбщихНастроек.Сохранить("BlocklyExecutor", "context", context,, ПараметрыСеанса.ТекущийПользователь);
 	Исключение
 		Ошибка = ОписаниеОшибки();
@@ -418,7 +418,7 @@
 	Попытка
 		Ini = ПрочитатьИзХранилища("BlocklyExecutor", "Ini",, ПараметрыСеанса.ТекущийПользователь);
 		context = ПрочитатьИзХранилища("BlocklyExecutor", "context",, ПараметрыСеанса.ТекущийПользователь);
-		context_param	= ПрочитатьИзХранилища("BlocklyExecutor", "param",, ПараметрыСеанса.ТекущийПользователь);
+		context_param	= ПрочитатьИзХранилища("BlocklyExecutor", "params",, ПараметрыСеанса.ТекущийПользователь);
 		Ini = ?(Ini = Неопределено, Неопределено, decode_xml_xdto(Ini));
 		Если Ini = Неопределено Тогда
 			Ini = Новый Соответствие;
@@ -431,7 +431,7 @@
 		Если context_param = Неопределено Тогда
 			context_param = новый Структура;
 		КонецЕсли;
-		context.Вставить("param", context_param); 
+		context.Вставить("params", context_param); 
 	Исключение
 		Ошибка = ОписаниеОшибки();
 	КонецПопытки;
@@ -498,6 +498,7 @@
 	context.operation.Вставить("operation_uuid",operation_uuid);
 	context.operation.Вставить("connection_uuid",connection_uuid);
 	Попытка
+		//Заполняются параметры подключения по данным connection_uuid, запуск из редактора блоки
 		params = ПрочитатьИзХранилища("BlocklyExecutor", "params"+connection_uuid,, ПараметрыСеанса.ТекущийПользователь);
 		Если ЗначениеЗаполнено(params) Тогда
 			Для Каждого КлючИЗначениеПараметр Из params Цикл
