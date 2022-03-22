@@ -47,8 +47,6 @@
 			result = saby_read_document_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "saby_download_from_link" Тогда
 			Возврат block_saby_download_from_link_execute(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "saby_read_changes" Тогда
-			result = saby_read_changes_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_ref" Тогда
 			result = block_c1_ref_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_meta_read" Тогда
@@ -59,6 +57,10 @@
 			result = block_logic_boolean_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_call_filter" Тогда
 			result = block_c1_call_filter_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "extsys_update_status2" Тогда
+			result = block_saby_extsys_update_status2_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_attach_attachment" Тогда
+			result = block_c1_attach_attachment_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;
@@ -134,6 +136,10 @@
 		result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_predefined" Тогда
 		result = block_api3_predefined_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_overtime" Тогда
+		result = block_api3_overtime_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheet_tag" Тогда
+		result = block_api3_timesheet_tag_calc_value(block_type, node, path, context, block_context);
 	Иначе
 		ВызватьИсключение NewExtExceptionСтрока(,"Нет реализации для блока", block_type);
 	КонецЕсли;
