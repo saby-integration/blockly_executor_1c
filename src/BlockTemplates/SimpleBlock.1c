@@ -136,8 +136,8 @@
 		result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_predefined" Тогда
 		result = block_api3_predefined_calc_value(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "api3_overtime" Тогда
-		result = block_api3_overtime_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_overtime_employee" Тогда
+		result = block_api3_overtime_employee_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_timesheet_tag" Тогда
 		result = block_api3_timesheet_tag_calc_value(block_type, node, path, context, block_context);
 	Иначе
