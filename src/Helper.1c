@@ -35,7 +35,7 @@
 			КонецПопытки;	
 		Иначе
 			Попытка
-				_obj = _obj[elem];
+				_obj = get_prop(_obj, elem);
 			Исключение	
 				ВызватьИсключение NewExtExceptionСтрока(,"Не удалось получить свойство объекта","path "+obj_path+" not supported ("+obj_name+")","block_obj_get_path_value",obj);
 			КонецПопытки;	
