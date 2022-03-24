@@ -16,7 +16,7 @@
 			result = Block_execute_all_next(node_if, path+"."+"if"+j, context, block_context);
 			ВставитьСвойствоЕслиНет(block_context, _key, result);
 		КонецЕсли;	
-		Если ЗначениеЗаполнено(result) Тогда
+		Если ЗначениеЗаполнено(result) и не (ТипЗнч(result) = Тип("Булево") и не result) Тогда	
 			if_complete = Истина;
 			Прервать;
 		КонецЕсли;	

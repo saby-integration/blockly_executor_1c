@@ -63,6 +63,8 @@
 			result = block_c1_attach_attachment_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "logic_null" Тогда
 			result = Неопределено;
+		ИначеЕсли block_type = "concatenate" Тогда
+			result = block_concatenate_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;
@@ -142,6 +144,10 @@
 		result = block_api3_overtime_employee_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_timesheet_tag" Тогда
 		result = block_api3_timesheet_tag_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_leaveschedule_table" Тогда
+		result = block_api3_leaveschedule_table_calc_value(block_type, node, path, context, block_context);		
+	ИначеЕсли block_type = "api3_leaveschedule" Тогда
+		result = block_api3_leaveschedule_calc_value(block_type, node, path, context, block_context);		
 	Иначе
 		ВызватьИсключение NewExtExceptionСтрока(,"Нет реализации для блока", block_type);
 	КонецЕсли;
