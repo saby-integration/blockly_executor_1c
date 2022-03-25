@@ -7,6 +7,8 @@
 	operation = block_context["OP"];
 	Если operation = "EQ" Тогда
 		Возврат ?(block_context["A"] = block_context["B"], Истина, Ложь);
+	ИначеЕсли operation = "GT" Тогда
+		Возврат ?(block_context["A"] > block_context["B"], Истина, Ложь);
 	Иначе
 		ВызватьИсключение operation + " не поддерживается"
 	КонецЕсли;	
