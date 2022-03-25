@@ -5,13 +5,13 @@
 	required_param.Добавить("B");
 	Block_check_required_param_in_block_context(required_param, block_context);
 	operation = block_context["OP"];
-	Если operation = "add" Тогда
+	Если operation = "ADD" Тогда
 		Возврат block_context["A"] + block_context["B"];
-	ИначеЕсли operation = "minus" Тогда
+	ИначеЕсли operation = "MINUS" Тогда
 		Возврат block_context["A"] - block_context["B"];
-	ИначеЕсли operation = "multiply" Тогда
+	ИначеЕсли operation = "MULTIPLY" Тогда
 		Возврат block_context["A"] * block_context["B"];
-	ИначеЕсли operation = "divide" Тогда
+	ИначеЕсли operation = "DIVIDE" Тогда
 		Возврат block_context["A"] / block_context["B"];
 	Иначе
 		ВызватьИсключение NewExtExceptionСтрока(,"В блоке MathArithmetic не реализована операция",operation);
