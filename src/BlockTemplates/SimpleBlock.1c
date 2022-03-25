@@ -35,6 +35,8 @@
 			result = block_extsys_read_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_ref_to_obj" Тогда
 			result = block_c1_ref_to_obj_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_ref_from_id" Тогда
+			result = block_c1_ref_from_id_calc_value(block_type, node, path, context, block_context);
 			//ИначеЕсли block_type = "c1_doc_read_list_print_forms" Тогда
 			//	result = block_c1_doc_read_list_print_forms_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_doc_read_print_forms" Тогда
@@ -65,6 +67,8 @@
 			result = Неопределено;
 		ИначеЕсли block_type = "concatenate" Тогда
 			result = block_concatenate_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "math_arithmetic" Тогда
+			result = block_math_arithmetic_calc_value(block_type, node, path, context, block_context);	
 		Иначе
 			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;
