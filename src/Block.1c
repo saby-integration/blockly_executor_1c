@@ -27,8 +27,6 @@
 			//	Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
 		ИначеЕсли block_type = "c1_meta_create" Тогда
 			Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
-		ИначеЕсли block_type = "c1_get_uuid" Тогда
-			Возврат block_c1_get_uuid_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
 		ИначеЕсли block_type = "c1_execute" Тогда
 			Возврат block_c1_execute_execute(block_type, node, path, context, block_context);//todo SimpleBlock	
 		ИначеЕсли block_type = "c1_clear_table" Тогда
