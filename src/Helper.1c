@@ -24,8 +24,12 @@
 		Если ТипЗнч(_obj) =  Тип("Массив") или ТипЗнч(_obj) =  Тип("ТаблицаЗначений") Тогда
 			Попытка  // это число
 				_obj = _obj[Число(elem)];
-			Исключение  
-				index = ArrayHelper_find(_obj, _path[i + 1], elem);
+			Исключение
+				Если (i < size - 1) Тогда
+					index = ArrayHelper_find(_obj, _path[i+ 1], elem);
+				Иначе
+					index = -1;
+				КонецЕсли;
 				Если index >= 0 Тогда
 					_obj = _obj[index];
 					i = i + 1;
