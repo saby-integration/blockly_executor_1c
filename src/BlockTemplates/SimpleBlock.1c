@@ -17,6 +17,8 @@
 			result = block_obj_prop_set_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "obj_prop_get" Тогда
 			result = block_obj_prop_get_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "controls_for" Тогда
+			result = block_controls_for_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "controls_forEach" Тогда
 			result = block_controls_for_each_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "lists_get_index" Тогда
@@ -67,8 +69,16 @@
 			result = Неопределено;
 		ИначеЕсли block_type = "concatenate" Тогда
 			result = block_concatenate_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "split" Тогда
+			result = block_split_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "lists_length" Тогда
+			result = block_lists_length_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "math_arithmetic" Тогда
 			result = block_math_arithmetic_calc_value(block_type, node, path, context, block_context);	
+		ИначеЕсли block_type = "c1_get_uuid" Тогда
+			Возврат block_c1_get_uuid_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_execute_action" Тогда
+			Возврат block_saby_execute_action_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;
@@ -134,6 +144,10 @@
 		result = block_api3_reason_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_sickleave" Тогда
 		result = block_api3_sickleave_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_sickleave_period" Тогда
+		result = block_api3_sickleave_period_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_sickleave_accrual" Тогда
+		result = block_api3_sickleave_accrual_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_changetermsemploym" Тогда
 		result = block_api3_changetermsemploym_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_employmenttype" Тогда
@@ -144,14 +158,20 @@
 		result = block_api3_leave_type_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_predefined" Тогда
 		result = block_api3_predefined_calc_value(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "api3_overtime_employee" Тогда
-		result = block_api3_overtime_employee_calc_value(block_type, node, path, context, block_context);
-	ИначеЕсли block_type = "api3_timesheet_tag" Тогда
-		result = block_api3_timesheet_tag_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_overtime" Тогда
+		result = block_api3_overtime_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_timesheets_tag" Тогда
+		result = block_api3_timesheets_tag_calc_value(block_type, node, path, context, block_context);
 	ИначеЕсли block_type = "api3_leaveschedule_table" Тогда
 		result = block_api3_leaveschedule_table_calc_value(block_type, node, path, context, block_context);		
 	ИначеЕсли block_type = "api3_leaveschedule" Тогда
 		result = block_api3_leaveschedule_calc_value(block_type, node, path, context, block_context);		
+	ИначеЕсли block_type = "api3_contacttype" Тогда
+		result = block_api3_contacttype_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_cadresother" Тогда
+		result = block_api3_cadresother_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "api3_accrualtype" Тогда
+		result = block_api3_accrualtype_calc_value(block_type, node, path, context, block_context);
 	Иначе
 		ВызватьИсключение NewExtExceptionСтрока(,"Нет реализации для блока", block_type);
 	КонецЕсли;
