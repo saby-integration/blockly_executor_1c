@@ -2,6 +2,12 @@
 #Область include_BlocklyExecutor_src_Blocks_Concatenate
 #КонецОбласти
 
+#Область include_BlocklyExecutor_src_Blocks_Split
+#КонецОбласти 
+
+#Область include_BlocklyExecutor_src_Blocks_listsLength
+#КонецОбласти 
+
 #Область include_BlocklyExecutor_src_Blocks_MathNumber
 #КонецОбласти
 
@@ -39,6 +45,9 @@
 #КонецОбласти
 
 #Область include_BlocklyExecutor_src_Blocks_VariablesSet
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ControlsFor
 #КонецОбласти
 
 #Область include_BlocklyExecutor_src_Blocks_ControlsForeach

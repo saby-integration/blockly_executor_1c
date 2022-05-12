@@ -17,6 +17,8 @@
 			result = block_obj_prop_set_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "obj_prop_get" Тогда
 			result = block_obj_prop_get_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "controls_for" Тогда
+			result = block_controls_for_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "controls_forEach" Тогда
 			result = block_controls_for_each_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "lists_get_index" Тогда
@@ -67,6 +69,10 @@
 			result = Неопределено;
 		ИначеЕсли block_type = "concatenate" Тогда
 			result = block_concatenate_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "split" Тогда
+			result = block_split_calc_value(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "lists_length" Тогда
+			result = block_lists_length_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "math_arithmetic" Тогда
 			result = block_math_arithmetic_calc_value(block_type, node, path, context, block_context);	
 		ИначеЕсли block_type = "c1_get_uuid" Тогда
