@@ -26,6 +26,9 @@
 #Область include_BlocklyExecutor_src_Blocks_LogicBoolean
 #КонецОбласти
 
+#Область include_BlocklyExecutor_src_Blocks_logicOperation
+#КонецОбласти
+
 #Область include_BlocklyExecutor_src_Blocks_ProceduresCallnoreturn
 #КонецОбласти
 
