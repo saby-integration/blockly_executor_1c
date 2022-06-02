@@ -6,6 +6,7 @@
 		Исключение
 			context.operation.Вставить("status", "error");
 			context.operation.Вставить("data", "Не найден endpoint " + endpoint);
+			ВызватьИсключение NewExtExceptionСтрока(,"В описании объекта не найден endpoint " + endpoint, endpoint);
 		КонецПопытки;		
 	Иначе
 		Попытка
