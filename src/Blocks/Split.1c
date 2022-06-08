@@ -1,6 +1,0 @@
-Функция block_split_calc_value(block_type, node, path, context, block_context)
-	value = block_context["value"];
-	block_context["value"] = СтрРазделить(value, block_context["delimiter"]);
-	block_check_step(context, block_context);
-	Возврат block_context["value"];	
-КонецФункции	

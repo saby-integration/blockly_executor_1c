@@ -17,8 +17,6 @@
 			result = block_obj_prop_set_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "obj_prop_get" Тогда
 			result = block_obj_prop_get_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "controls_for" Тогда
-			result = block_controls_for_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "controls_forEach" Тогда
 			result = block_controls_for_each_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "lists_get_index" Тогда
@@ -59,8 +57,6 @@
 			result = block_c1_meta_update_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "logic_boolean" Тогда
 			result = block_logic_boolean_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "logic_operation" Тогда
-			result = block_logic_operation_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "c1_call_filter" Тогда
 			result = block_c1_call_filter_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "extsys_update_status2" Тогда
@@ -71,18 +67,12 @@
 			result = Неопределено;
 		ИначеЕсли block_type = "concatenate" Тогда
 			result = block_concatenate_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "split" Тогда
-			result = block_split_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "lists_length" Тогда
-			result = block_lists_length_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "math_arithmetic" Тогда
 			result = block_math_arithmetic_calc_value(block_type, node, path, context, block_context);	
 		ИначеЕсли block_type = "c1_get_uuid" Тогда
 			Возврат block_c1_get_uuid_calc_value(block_type, node, path, context, block_context);
 		ИначеЕсли block_type = "saby_execute_action" Тогда
 			Возврат block_saby_execute_action_calc_value(block_type, node, path, context, block_context);
-		ИначеЕсли block_type = "saby_find" Тогда
-			Возврат block_saby_find_calc_value(block_type, node, path, context, block_context);
 		Иначе
 			result = simple_api3_block_execute(block_type, node, path, context, block_context);
 		КонецЕсли;
