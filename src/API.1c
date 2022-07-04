@@ -185,7 +185,7 @@
 	ИдБазыДанных = get_prop(ОбщиеПараметры, "system_uuid", Неопределено);
 	params = ПрочитатьИзХранилища("BlocklyExecutor", "params",, ПараметрыСеанса.ТекущийПользователь);
 	Результат = Новый Структура("Format, Uid, SubsystemVersion, InstanceUid, ConnectionId",
-		"Com1C82",
+		"Dom1C",
 		Метаданные.Имя,
 		Метаданные.Версия,
 		ИдБазыДанных,
