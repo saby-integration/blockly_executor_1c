@@ -31,6 +31,7 @@
 		КонецЕсли;
 		
 	КонецПопытки;
+	ОтладкаПеременных(context.variables);
 	Возврат Новый Структура("data, variables, status", result, context.variables, "complete");
 КонецФункции
 
