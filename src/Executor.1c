@@ -24,13 +24,14 @@
 			Если Currentblock_context.Свойство("value") И Найти(ТипЗнч(Currentblock_context.value),"объект") Тогда
 				Currentblock_context.value = ПолучитьСтруктуруИзОбъекта(Currentblock_context.value);
 			КонецЕсли;
-			ОтладкаПеременных(context.variables);	
+			ПреобразоватьСтруктутуКДопустимымXDTOТипам(context.variables);	
 			Возврат Новый Структура ("step, stepByStep, variables, data, status", Currentblock_context.__id, StepByStep, context.variables, Currentblock_context, "run"); 			
 		Иначе
 			Возврат Новый Структура("data, status", ОшибкаСтруктура, "error");
 		КонецЕсли;
 		
 	КонецПопытки;
+	ПреобразоватьСтруктутуКДопустимымXDTOТипам(context.variables);
 	Возврат Новый Структура("data, variables, status", result, context.variables, "complete");
 КонецФункции
 
