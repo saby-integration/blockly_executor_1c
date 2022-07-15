@@ -2,22 +2,21 @@
 	blockly_executor_read_procedures_and_functions();
 	Если ЗначениеЗаполнено(endpoint) Тогда
 		Попытка
-			Робот = Functions[endpoint];
+			endpoint_node = Functions[endpoint];
 		Исключение
-			context.operation.Вставить("status", "error");
-			context.operation.Вставить("data", "Не найден endpoint " + endpoint);
-			ВызватьИсключение NewExtExceptionСтрока(,"В описании объекта не найден endpoint " + endpoint, endpoint);
-		КонецПопытки;		
+			ИнфОбОшибке = ИнформацияОбОшибке();
+			ОшибкаСтруктура = NewExtExceptionСтруктура(ИнфОбОшибке,"Не найден endpoint " + endpoint, endpoint,,,"NotFound");
+			Возврат Новый Структура("data, status", ОшибкаСтруктура, "error");
+		КонецПопытки;
 	Иначе
 		Попытка
-			Робот = Functions["main"];
-		Исключение			
-		КонецПопытки;	
-	КонецЕсли;	
+			endpoint_node = Functions["main"];
+		Исключение
+		КонецПопытки;
+	КонецЕсли;
 	Попытка
-		result = block_execute(Робот.type, Робот.node, "", context, context.debug);
+		result = block_execute(endpoint_node.type, endpoint_node.node, "", context, context.debug);
 	Исключение
-		
 		ИнфОбОшибке = ИнформацияОбОшибке();
 		ОшибкаСтруктура = NewExtExceptionСтруктура(ИнфОбОшибке);
 		Если ОшибкаСтруктура.type = "StepForward" Тогда
