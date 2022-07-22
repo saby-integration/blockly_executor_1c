@@ -187,13 +187,13 @@
 Функция API_ADDON_READSYSTEMINFO(ПараметрыВызова) Экспорт
 	ОбщиеПараметры = ОбщиеНастройкиПрочитать();
 	ExtSysUid = get_prop(ОбщиеПараметры, "ExtSysUid", Неопределено);
-	params = ПрочитатьИзХранилища("BlocklyExecutor", "params",, ПараметрыСеанса.ТекущийПользователь);
+	params = ПрочитатьИзХранилища("Saby", "params",, ПараметрыСеанса.ТекущийПользователь);
 	
 //	Инишки = Новый Массив();
 //	Инишки.Добавить("Аккордион");                
 	//Инишки.Добавить("ПараметрыСистемы");
 	//Инишки.Добавить("ПараметрыПодключения");
-	Результат = Новый Структура("ExtSysType, ExtSysSubtype, ExtSysSubtypeVersion, Connector, ProductId, ProductVersion, ExtSysUid", //ConnectionId",//, ExtSysSettings",
+	Результат = Новый Структура("ExtSysType, ExtSysSubtype, ExtSysSubtypeVersion, Connector, ProductId, ProductVersion, ExtSysUid, ConnectionId", //",//, ExtSysSettings",
 		"1С",
 		Метаданные.Имя,
 		Метаданные.Версия,
@@ -201,7 +201,7 @@
 		ПолучитьНазваниеПродукта(),
 		ПолучитьИмяФайлаИНомерТекущейВерсии()[1],		
 		ExtSysUid,
-//		"", //get_prop(params, "ConnectionId", Неопределено),
+		get_prop(params, "ConnectionId", Неопределено)//,
 		//Новый Структура("Format, Type, Id",
 		//	"Dom1C",
 		//	"Система",
