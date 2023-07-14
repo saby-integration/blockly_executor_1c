@@ -1,0 +1,69 @@
+
+#Область include_BlocklyExecutor_src_Blocks_Concatenate
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_Split
+#КонецОбласти 
+
+#Область include_BlocklyExecutor_src_Blocks_listsLength
+#КонецОбласти 
+
+#Область include_BlocklyExecutor_src_Blocks_MathNumber
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_MathArithmetic
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ControlsIf
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ListsCreateWith
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_LogicCompare
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_LogicBoolean
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_logicOperation
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ProceduresCallreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ProceduresDefnoreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ProceduresCallnoreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ProceduresDefreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_Text
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_VariablesGet
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_VariablesSet
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ControlsFor
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ControlsForeach
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ControlsWhileUntil
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_ListsGetIndex
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_BlockTemplates_MultiThreadLoop
+#КонецОбласти
+
+#Область include_BlocklyExecutor_src_Blocks_SabyDownloadFromLink
+#КонецОбласти
