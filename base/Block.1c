@@ -1,0 +1,191 @@
+Функция block_execute(block_type, node, path, context, block_context)
+	blockType = node.ПолучитьАтрибут("type");
+	path = path+"."+blockType;
+	block_context.Вставить("__id",node.ПолучитьАтрибут("id"));
+	block_context.Вставить("__path",path);
+	block_context.Вставить("__type",blockType);
+	Попытка
+		Если block_type = "procedures_defnoreturn" Тогда
+			Возврат block_procedures_defnoreturn_execute(block_type, node, path, context, block_context);	
+		ИначеЕсли block_type = "procedures_callnoreturn" Тогда
+			Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);	
+		ИначеЕсли block_type = "procedures_callreturn" Тогда
+			Возврат block_procedures_callreturn_execute(block_type, node, path, context, block_context);	
+		ИначеЕсли block_type = "new_obj" Тогда
+			Возврат block_new_obj_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "text" Тогда
+			Возврат block_text_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "controls_if" Тогда
+			Возврат block_controls_if_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "lists_create_with" Тогда
+			Возврат block_lists_create_with_execute(block_type, node, path, context, block_context);
+			//ИначеЕсли block_type = "procedures_callnoreturn" Тогда
+			//	Возврат block_procedures_callnoreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "procedures_defreturn" Тогда
+			Возврат block_procedures_defreturn_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "c1_call_select" Тогда
+			Возврат block_c1_call_select_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+			//ИначеЕсли block_type = "c1_ref" Тогда
+			//	Возврат block_c1_ref_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_meta_create" Тогда
+			Возврат block_c1_meta_create_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "c1_clear_table" Тогда
+			Возврат block_c1_clear_table_execute(block_type, node, path, context, block_context);//todo SimpleBlock
+		ИначеЕсли block_type = "saby_read_changes" Тогда
+			Возврат block_multithreadloop_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_extsyncobj_list" Тогда
+			Возврат block_multithreadloop_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "saby_task_list" Тогда
+			Возврат block_multithreadloop_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "controls_whileUntil" Тогда
+			result = block_controls_while_until_execute(block_type, node, path, context, block_context);
+		ИначеЕсли block_type = "accounting_entries_list" Тогда
+			result = block_multithreadloop_execute(block_type, node, path, context, block_context);
+		Иначе
+			Возврат simple_block_execute(block_type, node, path, context, block_context);	
+		КонецЕсли;
+	Исключение
+		ИнфОбОшибке = ИнформацияОбОшибке();
+		ОшибкаСтруктура = NewExtExceptionСтруктура(ИнфОбОшибке);
+		Если ЭтоСлужебнаяОшибкаБлока(ОшибкаСтруктура.type) Тогда
+			ВызватьИсключение ИнфОбОшибке.Описание; // (исходное исключение) 			
+		Иначе	
+			ВызватьИсключение NewExtExceptionСтрока(ИнфОбОшибке,,,"Ошибка в блоке (" + blockType + ")", add_block_to_dump(block_context));	
+		КонецЕсли;
+	КонецПопытки;
+	Возврат Неопределено;
+КонецФункции
+
+Функция ЭтоСлужебнаяОшибкаБлока(ТипОшибки)
+	Если ТипОшибки = "StepForward" или ТипОшибки = "DeferredOperation" или ТипОшибки = "LimitCommand" Тогда
+		Возврат Истина;		
+	КонецЕсли;
+	Возврат Ложь;
+КонецФункции
+
+Функция Block_execute_all_next(node, path, context, block_context, statement = Ложь)
+	statement_number = 0;
+	Если НЕ block_context.Свойство("child") Тогда
+		block_context.Вставить("child", Новый Структура);
+	КонецЕсли;
+	child_context =  block_context.child;
+	result = Неопределено;
+	Пока Истина Цикл
+		
+		Если child_context.Свойство("i" + statement_number) Тогда  
+			_child_context = child_context["i" + statement_number];
+		Иначе 
+			child_context.Вставить("i" + statement_number, Новый Структура);
+		КонецЕсли;
+		
+		child = block_get_child_block(node);
+		next_node = Неопределено; 
+		Если НЕ child = Неопределено  Тогда
+			next_node = ?(statement,block_get_next_statement(child), Неопределено);
+			block_subtype = child.ПолучитьАтрибут("type");
+			Если НЕ child_context.Свойство("__result") Тогда
+				//path = path+"."+child.ПолучитьАтрибут("id");
+				result = block_execute(block_subtype, child, path, context, child_context["i" + statement_number]);
+			КонецЕсли;
+			
+		Иначе
+			result = Неопределено;
+		КонецЕсли;
+		Если НЕ next_node = Неопределено Тогда
+			Попытка
+				node = next_node;
+			Исключение
+				node = неопределено;
+				node = next_node;
+				Возврат result;
+			КонецПопытки;	
+			child_context["i"+statement_number].Вставить("__result", True);
+			statement_number = statement_number + 1;
+		Иначе
+			block_context.Удалить("child");
+			Возврат result;
+		КонецЕсли;	
+	КонецЦикла;	
+	Возврат result;
+КонецФункции
+
+Процедура Block_check_step(context, block_context)
+	Если StepByStep Тогда
+		Если ЗначениеЗаполнено(selected) Тогда
+			Если block_context.__id = selected Тогда
+				Step = block_context.__id;
+				Currentblock_context = block_context;
+				ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
+			КонецЕсли	
+		ИначеЕсли ЗначениеЗаполнено(NextStep) Тогда			
+			Step = block_context.__id;
+			Currentblock_context = block_context;
+			ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
+		ИначеЕсли block_context.__id = step Тогда
+			Если nextStep = Ложь Тогда  
+				Step = block_context.__id;
+				Currentblock_context = block_context;
+				ВызватьИсключение NewExtExceptionСтрока(,,,,,"StepForward");
+			Иначе
+				nextStep = Истина;  
+			КонецЕсли;
+		КонецЕсли;
+	КонецЕсли;
+КонецПроцедуры
+
+Процедура Block_set_next_step(block_context)
+    Если StepByStep Тогда
+        Если block_context.__id = Step Тогда
+            NextStep = Истина;
+		КонецЕсли;
+	КонецЕсли;
+КонецПроцедуры
+
+Процедура Block_set_step(block_context)
+    Если StepByStep Тогда
+        //# if self.executor.step != self.block_id:
+        NextStep = Ложь;
+        Step = block_context.__id;
+	КонецЕсли;
+КонецПроцедуры
+
+Функция Block_get_node_stack(node)
+	
+	Возврат Root.ВычислитьВыражениеXpath("./b:statement[@name='STACK']", node, размыватель).ПолучитьСледующий();
+КонецФункции
+
+Функция Block_get_child_block(node)
+	Return_node = Неопределено;
+	Попытка
+		Return_node = Root.ВычислитьВыражениеXpath("./b:block", node, размыватель).ПолучитьСледующий();	
+	Исключение
+	КонецПопытки;	
+	Возврат Return_node;
+КонецФункции
+
+Функция Block_get_next_statement(child)
+	Возврат Root.ВычислитьВыражениеXpath("./b:next", child, размыватель).ПолучитьСледующий();
+КонецФункции
+
+Функция Block_get_block_class(block_subtype, blocks=Неопределено)
+	
+	
+КонецФункции	
+
+Функция Block_set_variable(context, name, value)
+	context.variables.Вставить(name, value);
+	Возврат Неопределено;
+КонецФункции
+
+Функция Block_get_variable(context, name)
+	Возврат context.variables.Получить(name);
+КонецФункции
+
+Функция Block_get_mutation(node, Mutation_name, Default = Неопределено)
+	mutation = Root.ВычислитьВыражениеXpath("./b:mutation", node, размыватель).ПолучитьСледующий();
+	Если mutation <> Неопределено Тогда
+		Mutation_value = mutation.ПолучитьАтрибут(Mutation_name);
+		Возврат ?(Mutation_value = Неопределено, Default, Mutation_value);
+	КонецЕсли;	
+	Возврат Default;	
+КонецФункции	

@@ -1,0 +1,129 @@
+Функция block_multithreadloop_execute(block_type, node, path, context, block_context)
+	Если context.is_deferred Тогда
+        node_loop = node.ДочерниеУзлы[1];
+		block_multithreadloop_on_loop(node, path, context, block_context);
+		block_multithreadloop_execute_item(block_type, node_loop, path+".0_"+block_context["index"], context, block_context, Истина);
+        Block_set_step(block_context);
+        Возврат Неопределено;
+	КонецЕсли;
+	Возврат block_multithreadloop_execute_items(block_type, node, path, context, block_context);
+КонецФункции
+
+Функция block_multithreadloop_on_before_loop(block_type, node, path, context, block_context)
+	Если block_type = "accounting_entries_list" Тогда
+        simple_block_get_args(node, path, context, block_context);
+	КонецЕсли;
+КонецФункции
+
+Функция  block_multithreadloop_execute_item(block_type, node, path, context, block_context, statement=False )
+	Если block_type = "saby_read_changes" Тогда
+		saby_read_changes_execute_item(node, path, context, block_context);
+	Иначе
+		Block_execute_all_next(node, path, context, block_context, statement);
+	КонецЕсли;
+КонецФункции
+
+Функция  block_multithreadloop_execute_get_items(block_type, node_loop, path, context, block_context)
+	Если block_type = "saby_read_changes" Тогда
+        block_context.Вставить("items", saby_read_changes_get_items(context, block_context));
+	ИначеЕсли block_type = "saby_extsyncobj_list" Тогда
+        block_context.Вставить("items", saby_extsyncobj_list_items(context, block_context));
+	ИначеЕсли block_type = "saby_task_list" Тогда
+        block_context.Вставить("items", saby_task_list_items(context, block_context));
+	ИначеЕсли block_type = "accounting_entries_list" Тогда
+        block_context.Вставить("items", accounting_entries_list_items(context, block_context));
+	КонецЕсли;
+КонецФункции
+	
+Функция block_multithreadloop_execute_items(block_type, node, path, context, block_context)
+	block_multithreadloop_on_before_loop(block_type, node, path, context, block_context); //Pyton true way
+	//var_name = nnode.ДочерниеУзлы[0].ТекстовоеСодержимое; //не используется
+	
+	Попытка
+		node_loop = node.ДочерниеУзлы[1];
+	Исключение
+		Возврат Неопределено;
+	КонецПопытки;
+			
+	Если Не block_context.Свойство("items") Тогда
+	    block_context.Вставить("items", Новый Массив());
+	КонецЕсли;
+	Если Не block_context.Свойство("index") Тогда
+		block_context.Вставить("index", 0);
+	КонецЕсли;
+	
+	Пока Истина Цикл
+	    Если block_context["items"].Количество() = 0 Тогда
+	        Попытка
+				block_context["page"] = block_context["page"] + 1;
+	        Исключение
+	            block_context.Вставить("page", 0);
+			КонецПопытки;
+			
+			block_multithreadloop_execute_get_items(block_type, node, path, context, block_context);
+	        block_context.Вставить("index", 0);
+			
+			Если block_context["items"].Количество() = 0 Тогда
+				Если context["commands"].Количество() > 0 Тогда
+					ВызватьИсключение NewExtExceptionСтрока(,"LimitCommand",,,,"LimitCommand");		
+				КонецЕсли;
+	            Возврат Неопределено;
+			КонецЕсли;
+		КонецЕсли;
+	
+	    Для i = block_context["index"] ПО block_context["items"].Количество()-1 Цикл
+	        block_context["index"] = i;
+			Попытка
+				context_check_command_limit();
+			Исключение
+				block_multithreadloop_clear_child_context(block_context);
+				ИнфОбОшибке = ИнформацияОбОшибке();
+				ВызватьИсключение ИнфОбОшибке.Описание;
+			КонецПопытки;
+			
+			block_multithreadloop_on_loop(node, path, context, block_context);
+	        block_check_step(context, block_context);
+			node_loop = get_statement_node(node);
+			
+			Попытка
+				block_multithreadloop_execute_item(block_type, node_loop, path+".0_"+block_context["index"],context, block_context, Истина); 
+			Исключение
+				ИнфОбОшибке = ИнформацияОбОшибке();
+				ОшибкаСтруктура = NewExtExceptionСтруктура(ИнфОбОшибке);
+				Если ЭтоСлужебнаяОшибкаБлока(ОшибкаСтруктура.type) Тогда
+					Если ОшибкаСтруктура.type = "DeferredOperation" Тогда
+						context_add_deferred(ОшибкаСтруктура);
+						Block_set_next_step(block_context);
+					Иначе
+						ВызватьИсключение ИнфОбОшибке.Описание;  			
+					КонецЕсли
+				Иначе	
+					ВызватьИсключение NewExtExceptionСтрока(ИнфОбОшибке,,,"Ошибка в блоке (" + block_type + ")", add_block_to_dump(block_context));	
+				КонецЕсли;
+			КонецПопытки;
+			
+			Block_set_step(block_context);
+	        block_multithreadloop_clear_child_context(block_context);
+		КонецЦикла;
+		
+	    block_context.Вставить("items", Новый Массив);
+		
+		Попытка
+			context_check_command_limit();
+		Исключение
+			ИнфОбОшибке = ИнформацияОбОшибке();
+			ВызватьИсключение ИнфОбОшибке.Описание;
+		КонецПопытки;
+	КонецЦикла;
+КонецФункции
+
+Функция block_multithreadloop_on_loop(node, path, context, block_context)
+	Block_set_variable(context, node.ДочерниеУзлы[0].ТекстовоеСодержимое, block_context["items"][block_context["index"]]);
+КонецФункции
+
+Функция block_multithreadloop_clear_child_context(block_context, result=Неопределено, delete_children = Истина)
+	Если delete_children Тогда
+		block_context.Вставить("__child", Неопределено);
+		block_context.Вставить("child", Новый Структура);
+	КонецЕсли;
+КонецФункции
