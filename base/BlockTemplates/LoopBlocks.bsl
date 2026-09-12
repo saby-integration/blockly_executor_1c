@@ -1,0 +1,98 @@
+
+// Функция simple_block_execute_loop
+//
+// Параметры:
+// block_type - Строка - Название блока
+// node - XML - Текущий обрабатываемый узел XML
+// path - Строка - Абсолютный путь до исполняемого блока
+// context - Соответствие - Контекст исполняемого блока
+// block_context - Соответствие - Контекст текущего выполняемого блока
+// БлокВыполнен - Булево - Признак выполнения блока
+//
+// Возвращаемое значение:
+//  Структура - Результат выполения функции
+//
+// Сохраняем идентичность со структурой кода в Питоне
+// BSLLS:FunctionOutParameter-off
+//DynamicDirective
+Функция simple_block_execute_loop(block_type, node, path, context, block_context, БлокВыполнен) 
+	БлокВыполнен = Истина;
+	
+	Если block_context.Свойство("result") Тогда
+		Возврат block_context["result"];
+	КонецЕсли;
+
+	result = Неопределено;
+	
+	Если block_type = "controls_for" Тогда
+		simple_block_before_execute(node, path, context, block_context);
+		result = block_controls_for_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "controls_forEach2" Тогда
+		simple_block_before_execute(node, path, context, block_context);
+		result = block_controls_for_each2_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "controls_forEach" Тогда
+		simple_block_before_execute(node, path, context, block_context);
+		result = block_controls_for_each_calc_value(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "controls_flow_statements" Тогда
+		simple_block_before_execute(node, path, context, block_context);
+		result = block_controls_flow_statements_calc_value(block_type, node, path, context, block_context);
+	Иначе
+		БлокВыполнен = Ложь;
+	КонецЕсли;
+	Возврат result;
+КонецФункции
+// BSLLS:FunctionOutParameter-on
+
+// Функция block_execute_core_loop
+//
+// Параметры:
+// block_type - Строка - Название блока
+// node - XML - Текущий обрабатываемый узел XML
+// path - Строка - Абсолютный путь до исполняемого блока
+// context - Соответствие - Контекст исполняемого блока
+// block_context - Соответствие - Контекст текущего выполняемого блока
+// БлокВыполнен - Булево - Признак выполнения блока
+//
+// Возвращаемое значение:
+//  Структура - Результат выполения функции
+//
+// Сохраняем идентичность со структурой кода в Питоне
+// BSLLS:FunctionOutParameter-off
+//DynamicDirective
+Функция block_execute_core_loop(block_type, node, path, context, block_context, БлокВыполнен)
+	БлокВыполнен = Истина;
+	result = Неопределено;
+	Если block_type = "controls_whileUntil" Тогда
+		result = block_controls_while_until_execute(block_type, node, path, context, block_context);
+	ИначеЕсли block_type = "controls_forEachAsync" Тогда
+		result = block_multithreadloop_execute(block_type, node, path, context, block_context, Истина);
+	ИначеЕсли block_type = "foreach_filter_object" Тогда
+		result = block_multithreadloop_execute(block_type, node, path, context, block_context);	
+	Иначе
+		БлокВыполнен = Ложь;
+	КонецЕсли;
+	Возврат result;	
+КонецФункции
+// BSLLS:FunctionOutParameter-on
+
+// Функция block_execute_loop
+//
+// Параметры:
+// block_type - Строка - Название блока
+// node - XML - Текущий обрабатываемый узел XML
+// path - Строка - Абсолютный путь до исполняемого блока
+// context - Соответствие - Контекст исполняемого блока
+// block_context - Соответствие - Контекст текущего выполняемого блока
+// БлокВыполнен - Булево - Признак выполнения блока
+//
+// Возвращаемое значение:
+//  Структура - Результат выполения функции
+//
+//DynamicDirective
+Функция block_execute_loop(block_type, node, path, context, block_context, БлокВыполнен)
+	result = block_execute_core_loop(block_type, node, path, context, block_context, БлокВыполнен);
+	Если Не БлокВыполнен Тогда
+		result = simple_block_execute_loop(block_type, node, path, context, block_context, БлокВыполнен);	
+	КонецЕсли;
+	Возврат result;	
+КонецФункции
