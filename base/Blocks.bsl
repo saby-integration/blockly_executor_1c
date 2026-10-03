@@ -1,0 +1,124 @@
+
+#Область include_BlocklyExecutor_base_Blocks_ListObjSort
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_Concatenate
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_Split
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_TextReplace
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_TextLength
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_TextTrim
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_listsLength
+#КонецОбласти 
+
+#Область include_BlocklyExecutor_base_Blocks_listsIndexOf
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_MathNumber
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_MathArithmetic
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_MathChange
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ControlsIf
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ListsCreateWith
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_LogicCompare
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_LogicCompare2
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_LogicBoolean
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_logicOperation
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_TernaryOperation
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ProceduresCallreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ProceduresDefnoreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ProceduresCallnoreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ProceduresDefreturn
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_Text
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_TextMultiline
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_VariablesGet
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_VariablesSet
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ControlsFor
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ControlsForeach
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ControlsForeachAsync
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ForeachFilterObject
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ControlsWhileUntil
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ListsGetIndex
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ListsSetIndex
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_BlockTemplates_MultiThreadLoop
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_SabyDownloadFromLink
+#КонецОбласти  
+
+#Область include_BlocklyExecutor_base_Blocks_SabyDocumentList
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_SabyDocumentEventList
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_SabyQuery
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_InviteUser
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ListsConcatenate
+#КонецОбласти
+
+#Область include_BlocklyExecutor_base_Blocks_ControlsFlowStatements
+#КонецОбласти
+
